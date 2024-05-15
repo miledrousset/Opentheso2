@@ -20,11 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.*;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.HttpHeaders;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -32,8 +32,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.QueryParam;
+import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Application;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 
 /**
  * REST Web Service
@@ -49,46 +54,6 @@ public class OpenApiController extends BaseOpenApiResource {
 
     @Context
     Application app;
-    
-    @Path("/{lang}/openapi.{type:json|yaml}")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON, "application/yaml"})
-    @Operation(hidden = true)
-    public Response getOpenApi(@Context HttpHeaders headers,
-            @Context UriInfo uriInfo,
-            @PathParam("type") String type,
-            @PathParam("lang") String lang,
-            @QueryParam("scheme") String scheme) throws Exception {
-        
-       Map<String, String> types = new HashMap<>();
-       types.put("json", CustomMediaType.APPLICATION_JSON_UTF_8);
-       types.put("yaml", "application/yaml;charset=utf-8");
-        
-        LangHelper helper = new LangHelper();
-         List<String> languages = helper.availableLang();
-         
-         if (!languages.contains(lang.toLowerCase())) {
-             return ResponseHelper.errorResponse(Response.Status.NOT_FOUND, "The lang " + lang + " is not available", types.get(type));
-         }
-        
-         ResourceBundle bundle = ResourceBundle.getBundle("language.openapi", new Locale(lang));
-         
-        try {
-            Response openapi = super.getOpenApi(headers, config, app, uriInfo, type);
-            
-            String jsonOAS = (String) openapi.getEntity();
-            jsonOAS = helper.translate(jsonOAS, bundle);
-
-            jsonOAS = jsonOAS.replace("${BASE_SERVER}$", changeURL(uriInfo, scheme));
-            Logger.getLogger(OpenApiConfig.class.getName()).log(Level.SEVERE, changeURL(uriInfo, scheme));
-            
-            return ResponseHelper.response(Response.Status.OK, jsonOAS, types.get(type));
-        } catch (Exception e) {
-            Logger.getLogger(OpenApiConfig.class.getName()).log(Level.SEVERE, e.getMessage());
-        }
-
-        return ResponseHelper.errorResponse(Response.Status.INTERNAL_SERVER_ERROR, "Internal server error", CustomMediaType.APPLICATION_JSON_UTF_8);
-    }
    
     @Path("/ping")
     @GET

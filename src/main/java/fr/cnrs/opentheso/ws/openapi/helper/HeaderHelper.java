@@ -4,8 +4,8 @@
  */
 package fr.cnrs.opentheso.ws.openapi.helper;
 
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.MultivaluedMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;

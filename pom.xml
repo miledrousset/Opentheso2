@@ -49,18 +49,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>${jersey.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>d3js</artifactId>
             <version>${d3js.version}</version>
@@ -298,7 +286,7 @@
             <artifactId>swagger-parser</artifactId>
             <version>${swagger.parser.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
@@ -326,6 +314,31 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.2.4.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${jersey.version}</version>
         </dependency>
     </dependencies>
 
@@ -419,7 +432,7 @@
         <rdf4j.version>4.3.0-M1</rdf4j.version>
         <jdom2.version>2.0.6</jdom2.version>
         <sparql.version>1.2</sparql.version>
-        <jersey.version>2.33</jersey.version>
+        <jersey.version>3.1.0</jersey.version>
         <junit.version>4.13.1</junit.version>
         <cdi-api.version>2.0</cdi-api.version>
         <jsf2leaf.version>1.0</jsf2leaf.version>
@@ -445,7 +458,7 @@
         <jackson-annotations.version>2.13.3</jackson-annotations.version>
         <cloning.version>1.10.3</cloning.version>
         <swagger.version>2.2.10</swagger.version>
-        <swagger.parser.version>2.1.14</swagger.parser.version>
+        <swagger.parser.version>2.1.22</swagger.parser.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <weld-servlet-shaded.version>3.1.2.Final</weld-servlet-shaded.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

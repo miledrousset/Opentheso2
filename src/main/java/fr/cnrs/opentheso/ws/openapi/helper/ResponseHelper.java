@@ -1,7 +1,7 @@
 package fr.cnrs.opentheso.ws.openapi.helper;
 
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 
 /**
  *
