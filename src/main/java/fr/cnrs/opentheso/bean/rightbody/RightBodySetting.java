@@ -5,10 +5,10 @@
  */
 package fr.cnrs.opentheso.bean.rightbody;
 
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
  *

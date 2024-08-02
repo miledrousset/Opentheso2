@@ -6,7 +6,7 @@ import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Collections;
 import java.util.List;
 

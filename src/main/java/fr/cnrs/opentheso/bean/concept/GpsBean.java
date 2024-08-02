@@ -12,11 +12,11 @@ import fr.cnrs.opentheso.entites.Gps;
 import fr.cnrs.opentheso.repositories.GpsRepository;
 
 import java.io.Serializable;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import lombok.Data;
 import org.primefaces.PrimeFaces;
 

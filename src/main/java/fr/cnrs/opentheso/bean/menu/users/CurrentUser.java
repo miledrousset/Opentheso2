@@ -28,13 +28,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 import fr.cnrs.opentheso.utils.LDAPUtils;
 import java.util.List;

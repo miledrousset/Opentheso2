@@ -2,12 +2,12 @@
 
 <!-- =========== FULL CONFIGURATION FILE ================================== -->
 
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
-    version="2.3">
-
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xml="http://www.w3.org/XML/1998/namespace"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+                    https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+              version="4.0">
      <application>
         <resource-bundle>
             <base-name>hikari</base-name>
@@ -22,6 +22,7 @@
         </resource-bundle>
         <message-bundle>preferences</message-bundle>
     </application>
+   
     <application>
         <locale-config>
             <default-locale>fr</default-locale>
@@ -52,18 +53,10 @@
             <var>langue_de</var>
         </resource-bundle>
         <message-bundle>language/site_de</message-bundle>
-    </application>    
-
-    <filter>
-        <filter-name>PrimeFaces FileUpload Filter</filter-name>
-        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>PrimeFaces FileUpload Filter</filter-name>
-        <servler-name>Faces Servlet</servler-name>
-    </filter-mapping>
-    <factory>
-        <exception-handler-factory>fr.cnrs.opentheso.bean.session.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
-    </factory>    
+    </application>     
+   
+   
+   
+   
 </faces-config>
 

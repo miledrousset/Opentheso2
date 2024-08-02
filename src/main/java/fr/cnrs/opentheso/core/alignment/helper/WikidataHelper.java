@@ -5,14 +5,17 @@
  */
 package fr.cnrs.opentheso.core.alignment.helper;
 
-import com.bordercloud.sparql.Endpoint;
-import com.bordercloud.sparql.EndpointException;
+//import com.bordercloud.sparql.Endpoint;
+//import com.bordercloud.sparql.EndpointException;
+import org.apache.jena.query.*;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonValue;
 import fr.cnrs.opentheso.bdd.helper.nodes.NodeAlignment;
 import fr.cnrs.opentheso.core.alignment.SelectedResource;
 import fr.cnrs.opentheso.core.json.helper.JsonHelper;
@@ -23,8 +26,8 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import javax.json.Json;
-import javax.json.JsonReader;
+import jakarta.json.Json;
+import jakarta.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
@@ -217,6 +220,30 @@ public class WikidataHelper {
         }
         return listAlignValues;
     }
+    
+    
+    public void test(){
+        // Définir l'URL du service SPARQL (par exemple, DBpedia)
+        String sparqlEndpoint = "https://dbpedia.org/sparql";
+
+        // Définir la requête SPARQL
+        String sparqlQuery = "SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object } LIMIT 10";
+
+        // Créer une QueryExecution pour exécuter la requête
+        Query query = QueryFactory.create(sparqlQuery);
+        try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query)) {
+            // Exécuter la requête et obtenir les résultats
+            ResultSet results = qexec.execSelect();
+
+            // Afficher les résultats
+            while (results.hasNext()) {
+                QuerySolution soln = results.nextSolution();
+                System.out.println(soln);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }    
 
     /**
      * Cette fonction permet de récupérer les options de Wikidata Images,

@@ -26,8 +26,8 @@ import fr.cnrs.opentheso.bean.menu.connect.Connect;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

@@ -14,15 +14,15 @@ import java.util.Date;
 import java.util.List;
 
 import java.util.*;
-import javax.annotation.PreDestroy;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.annotation.PreDestroy;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;

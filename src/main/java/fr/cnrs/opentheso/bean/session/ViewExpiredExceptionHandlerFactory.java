@@ -5,8 +5,8 @@ package fr.cnrs.opentheso.bean.session;
  *
  * @author miled.rousset
  */
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
 
 public class ViewExpiredExceptionHandlerFactory extends ExceptionHandlerFactory {
 

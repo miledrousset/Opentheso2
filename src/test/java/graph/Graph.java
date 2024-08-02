@@ -25,9 +25,9 @@ import fr.cnrs.opentheso.ws.openapi.helper.d3jsgraph.Properties;
 import fr.cnrs.opentheso.ws.openapi.helper.d3jsgraph.Relationship;
 import java.util.ArrayList;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObjectBuilder;
 import org.junit.Test;
 
 /**

@@ -9,15 +9,15 @@ import com.sun.mail.smtp.SMTPTransport;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 /**
  *

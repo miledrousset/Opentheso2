@@ -16,9 +16,9 @@ public class Concept {
 
     private String idConcept;
     private String idThesaurus;
-    private String idArk = "";
-    private String idHandle = "";
-    private String idDoi = "";    
+    private String idArk;
+    private String idHandle;
+    private String idDoi;    
     private Date created;
     private Date modified;
     private String status;

@@ -1,11 +1,11 @@
 package fr.cnrs.opentheso.bean.candidat.dao;
 
 import fr.cnrs.opentheso.bean.candidat.CandidatBean;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.faces.application.FacesMessage;
-import javax.inject.Inject;
+import jakarta.faces.application.FacesMessage;
+import jakarta.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;
 

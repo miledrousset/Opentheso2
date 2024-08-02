@@ -1,10 +1,10 @@
 package fr.cnrs.opentheso.bean.converter;
 
 import fr.cnrs.opentheso.bdd.helper.nodes.NodeIdValue;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
+import jakarta.faces.convert.FacesConverter;
 
 @FacesConverter("searchConverterIdValue")
 public class SearchConverterIdValue implements Converter{

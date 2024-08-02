@@ -1,17 +1,17 @@
 package fr.cnrs.opentheso.bean.toolbox.atelier;
 
 import java.io.ByteArrayInputStream;
-import javax.faces.view.ViewScoped;
+import jakarta.faces.view.ViewScoped;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+import jakarta.inject.Inject;
 
 import fr.cnrs.opentheso.bdd.helper.nodes.NodeIdValue;
 import fr.cnrs.opentheso.bean.fusion.FusionService;

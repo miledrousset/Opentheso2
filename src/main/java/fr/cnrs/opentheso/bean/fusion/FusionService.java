@@ -20,9 +20,9 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
 
 import org.eclipse.rdf4j.rio.RDFFormat;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;

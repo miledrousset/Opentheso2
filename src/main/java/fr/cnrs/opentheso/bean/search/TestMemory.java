@@ -6,10 +6,10 @@
 package fr.cnrs.opentheso.bean.search;
 
 import fr.cnrs.opentheso.bean.rightbody.viewconcept.ConceptView;
-import javax.inject.Named;
+import jakarta.inject.Named;
 //import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 /**
  *

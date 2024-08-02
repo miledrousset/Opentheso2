@@ -16,10 +16,10 @@ import fr.cnrs.opentheso.bean.menu.connect.Connect;
 import fr.cnrs.opentheso.bean.menu.theso.SelectedTheso;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.annotation.PreDestroy;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
 
 /**
  *

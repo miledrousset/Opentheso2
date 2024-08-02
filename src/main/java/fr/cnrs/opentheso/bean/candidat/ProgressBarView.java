@@ -1,9 +1,9 @@
 package fr.cnrs.opentheso.bean.candidat;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 import java.io.Serializable;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 
 
 @Named("candidatProgressBar")

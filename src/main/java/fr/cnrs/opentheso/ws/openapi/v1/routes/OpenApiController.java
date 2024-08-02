@@ -5,38 +5,38 @@
  */
 package fr.cnrs.opentheso.ws.openapi.v1.routes;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zaxxer.hikari.HikariDataSource;
-import fr.cnrs.opentheso.bdd.helper.CandidateHelper;
-import fr.cnrs.opentheso.bdd.helper.ConceptHelper;
-import fr.cnrs.opentheso.bdd.helper.PreferencesHelper;
 import fr.cnrs.opentheso.bdd.helper.UserHelper;
 import fr.cnrs.opentheso.ws.openapi.helper.*;
-import io.swagger.v3.jaxrs2.integration.resources.BaseOpenApiResource;
+//import io.swagger.v3.jaxrs2.integration.resources.BaseOpenApiResource;
 import fr.cnrs.opentheso.ws.openapi.v1.OpenApiConfig;
+
+
+
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.primefaces.shaded.json.JSONObject;
+import io.swagger.v3.oas.integration.api.OpenApiContext;
+import io.swagger.v3.oas.integration.OpenApiContextLocator;
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.models.OpenAPI;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.*;
 
-import javax.servlet.ServletConfig;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import jakarta.servlet.ServletConfig;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.Json;
+import jakarta.json.JsonObjectBuilder;
 
 import static fr.cnrs.opentheso.ws.openapi.helper.DataHelper.connect;
+
 
 /**
  * REST Web Service
@@ -45,7 +45,7 @@ import static fr.cnrs.opentheso.ws.openapi.helper.DataHelper.connect;
  */
 
 @Path("/")
-public class OpenApiController extends BaseOpenApiResource {
+public class OpenApiController {
 
     @Context
     ServletConfig config;
@@ -78,15 +78,38 @@ public class OpenApiController extends BaseOpenApiResource {
          ResourceBundle bundle = ResourceBundle.getBundle("language.openapi", new Locale(lang));
 
         try {
-            Response openapi = super.getOpenApi(headers, config, app, uriInfo, type);
-
-            String jsonOAS = (String) openapi.getEntity();
-            jsonOAS = helper.translate(jsonOAS, bundle);
-
-            jsonOAS = jsonOAS.replace("${BASE_SERVER}$", changeURL(uriInfo, scheme));
+            // Configure and initialize OpenAPI
+            SwaggerConfiguration oasConfig = new SwaggerConfiguration()
+                    .resourcePackages(Collections.singleton("fr.cnrs.opentheso.ws.openapi"))
+                    .prettyPrint(true);        
+            OpenApiContext oasContext = OpenApiContextLocator.getInstance().getOpenApiContext(config.getServletName());
+            OpenAPI openAPI = oasContext.read();            
+            
+            // Convert OpenAPI to JSON or YAML
+            String openApiSpec;
+            if ("json".equals(type)) {
+                openApiSpec = io.swagger.v3.core.util.Json.pretty(openAPI);
+            } else {
+                openApiSpec = io.swagger.v3.core.util.Yaml.pretty(openAPI);
+            }
+            
+            // Translate and modify the OpenAPI specification
+            openApiSpec = helper.translate(openApiSpec, bundle);
+            openApiSpec = openApiSpec.replace("${BASE_SERVER}$", changeURL(uriInfo, scheme));
             Logger.getLogger(OpenApiConfig.class.getName()).log(Level.SEVERE, changeURL(uriInfo, scheme));
+            
+            /*
+            Response openapi = super.getOpenApi(headers, config, app, uriInfo, type);
+            super.getConfigLocation();
+*/
+       //     String jsonOAS = (String) openapi.getEntity();
+       //     jsonOAS = helper.translate(jsonOAS, bundle);
 
-            return ResponseHelper.response(Response.Status.OK, jsonOAS, types.get(type));
+        //    jsonOAS = jsonOAS.replace("${BASE_SERVER}$", changeURL(uriInfo, scheme));
+        //    Logger.getLogger(OpenApiConfig.class.getName()).log(Level.SEVERE, changeURL(uriInfo, scheme));
+
+            //return ResponseHelper.response(Response.Status.OK, jsonOAS, types.get(type));
+            return ResponseHelper.response(Response.Status.OK, openApiSpec, types.get(type));            
         } catch (Exception e) {
             Logger.getLogger(OpenApiConfig.class.getName()).log(Level.SEVERE, e.getMessage());
         }

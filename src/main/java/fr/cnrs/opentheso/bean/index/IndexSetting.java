@@ -1,10 +1,10 @@
 package fr.cnrs.opentheso.bean.index;
 
 import java.io.IOException;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 
 @SessionScoped

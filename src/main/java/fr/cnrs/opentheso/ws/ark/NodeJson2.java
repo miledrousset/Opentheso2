@@ -4,11 +4,10 @@ import fr.cnrs.opentheso.bdd.datas.DcElement;
 import fr.cnrs.opentheso.bdd.datas.Qualifier;
 import java.util.ArrayList;
 import fr.cnrs.opentheso.bdd.tools.FileUtilities;
-import fr.cnrs.opentheso.bdd.tools.StringPlus;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObjectBuilder;
 
 public final class NodeJson2 {
 

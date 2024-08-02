@@ -6,16 +6,23 @@ import fr.cnrs.opentheso.bean.notification.NewVersionService;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.ExternalContext;
 
+import liquibase.Contexts;
+import liquibase.LabelExpression;
 
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
+import liquibase.command.CommandScope;
+import liquibase.exception.LiquibaseException;
+import java.sql.SQLException;
+import java.sql.Connection;
+
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 
 @Named (value = "connect")
@@ -121,12 +128,38 @@ public class Connect implements Serializable{
 
         try {
             poolConnexion = new HikariDataSource(config);
+            initLiquibase(resourceBundle.getString("dataSource.user"), resourceBundle.getString("dataSource.password"));            
         } catch (Exception ex) {
         //    logger.error(ex.toString());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getClass().getName(), ex.getMessage()); 
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
      }
+    
+    private void initLiquibase(String user, String pass) {
+        try (Connection connection = getPoolConnexion().getConnection()) {
+            
+            // Configure contexts and labels for update
+            Contexts contexts = new Contexts(); // Specify contexts if needed
+            
+            LabelExpression labels = new LabelExpression(); // Specify labels if needed
+            labels.add("Opentheso");
+            
+            // Exécution des changements de schéma via CommandScope
+            CommandScope commandScope = new CommandScope("update");
+            commandScope.addArgumentValue("changeLogFile", "changelog/db.changelog.xml");
+            commandScope.addArgumentValue("contexts", contexts.toString());
+            commandScope.addArgumentValue("labels", labels.getLabels().toString());            
+            commandScope.addArgumentValue("url", connection.getMetaData().getURL());    
+            commandScope.addArgumentValue("username", user);
+            // Passez le mot de passe si nécessaire
+            commandScope.addArgumentValue("password", pass);            
+            commandScope.execute();
+
+        } catch (LiquibaseException | SQLException e) {
+            e.printStackTrace();
+        }
+    }    
     
     public boolean isConnected(){
         return poolConnexion != null;

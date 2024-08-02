@@ -11,11 +11,11 @@ import fr.cnrs.opentheso.bean.menu.connect.Connect;
 import fr.cnrs.opentheso.bean.rightbody.viewconcept.ConceptView;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.annotation.PreDestroy;
-import javax.inject.Named;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Named;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -23,7 +23,7 @@ import org.primefaces.PrimeFaces;
  * @author miledrousset
  */
 @Named(value = "conceptType")
-@javax.enterprise.context.SessionScoped
+@jakarta.enterprise.context.SessionScoped
 
 public class ConceptType implements Serializable {
     @Inject private Connect connect;

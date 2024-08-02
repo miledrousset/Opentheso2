@@ -11,13 +11,13 @@ import fr.cnrs.opentheso.bean.language.LanguageBean;
 import fr.cnrs.opentheso.bean.menu.connect.Connect;
 import fr.cnrs.opentheso.bean.menu.theso.SelectedTheso;
 import fr.cnrs.opentheso.bean.rightbody.viewconcept.ConceptView;
-import javax.inject.Named;
+import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.annotation.PreDestroy;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -25,7 +25,7 @@ import org.primefaces.PrimeFaces;
  * @author miledrousset
  */
 @Named(value = "removeFromGroupBean")
-@javax.enterprise.context.SessionScoped
+@jakarta.enterprise.context.SessionScoped
 
 public class RemoveFromGroupBean implements Serializable {
     @Inject private Connect connect;

@@ -6,8 +6,8 @@
 package fr.cnrs.opentheso.core.alignment.helper;
 
 import java.util.ArrayList;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
 import fr.cnrs.opentheso.bdd.helper.nodes.NodeAlignment;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +16,8 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import javax.json.Json;
-import javax.json.JsonReader;
+import jakarta.json.Json;
+import jakarta.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
 
 /**

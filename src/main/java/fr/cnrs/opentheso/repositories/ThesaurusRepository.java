@@ -4,7 +4,7 @@ import fr.cnrs.opentheso.SessionFactoryMaker;
 import fr.cnrs.opentheso.entites.Thesaurus;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 

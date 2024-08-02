@@ -16,7 +16,7 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 

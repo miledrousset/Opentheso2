@@ -33,11 +33,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PreDestroy;
-import javax.inject.Named;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Named;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
 import net.handle.hdllib.HandleException;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.PrimeFaces;
@@ -54,7 +54,7 @@ import org.primefaces.model.TreeNode;
 //@javax.enterprise.context.RequestScoped
 //// on ne peut pas relancer plusieurs actions avec cette déclaration
 
-@javax.enterprise.context.SessionScoped
+@jakarta.enterprise.context.SessionScoped
 public class EditConcept implements Serializable {
     @Inject private Connect connect;
     @Inject private RoleOnThesoBean roleOnThesoBean;

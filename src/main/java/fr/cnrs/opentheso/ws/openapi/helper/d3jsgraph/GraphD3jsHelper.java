@@ -20,9 +20,9 @@ import fr.cnrs.opentheso.core.exports.UriHelper;
 import fr.cnrs.opentheso.skosapi.SKOSProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObjectBuilder;
 
 /**
  *

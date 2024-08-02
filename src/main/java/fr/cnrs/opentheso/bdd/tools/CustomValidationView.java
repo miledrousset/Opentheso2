@@ -1,8 +1,8 @@
 package fr.cnrs.opentheso.bdd.tools;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-import javax.validation.constraints.Email;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Named;
+import jakarta.validation.constraints.Email;
 
 /**
  *

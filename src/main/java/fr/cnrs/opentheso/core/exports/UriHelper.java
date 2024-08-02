@@ -4,7 +4,7 @@ package fr.cnrs.opentheso.core.exports;
 import com.zaxxer.hikari.HikariDataSource;
 import fr.cnrs.opentheso.bdd.helper.ConceptHelper;
 import fr.cnrs.opentheso.bdd.helper.nodes.NodePreference;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import org.apache.commons.lang3.StringUtils;
 
 /**

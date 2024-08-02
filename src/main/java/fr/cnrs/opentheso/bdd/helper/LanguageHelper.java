@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.model.SelectItem;
+import jakarta.faces.model.SelectItem;
 import fr.cnrs.opentheso.bdd.datas.Languages_iso639;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

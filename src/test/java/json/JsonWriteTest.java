@@ -5,17 +5,7 @@
  */
 package json;
 
-import fr.cnrs.opentheso.bdd.helper.nodes.Path;
-import java.util.ArrayList;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

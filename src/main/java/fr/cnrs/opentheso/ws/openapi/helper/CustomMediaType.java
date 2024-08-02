@@ -4,7 +4,7 @@
  */
 package fr.cnrs.opentheso.ws.openapi.helper;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.List;
 

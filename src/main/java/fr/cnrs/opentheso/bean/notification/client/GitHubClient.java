@@ -1,6 +1,6 @@
 package fr.cnrs.opentheso.bean.notification.client;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 import java.security.PrivateKey;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.json.Json;
+import jakarta.json.Json;
 import net.handle.hdllib.AbstractMessage;
 import net.handle.hdllib.AbstractResponse;
 import net.handle.hdllib.AddValueRequest;
@@ -30,8 +30,8 @@ import net.handle.hdllib.PublicKeyAuthenticationInfo;
 import net.handle.hdllib.RemoveValueRequest;
 import net.handle.hdllib.Util;
 
-import javax.json.JsonObject;
-import javax.json.JsonReader;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 
 public class HandleService {
 

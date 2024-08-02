@@ -1,6 +1,6 @@
 package fr.cnrs.opentheso.utils;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.directory.InitialDirContext;
 import java.util.Hashtable;
