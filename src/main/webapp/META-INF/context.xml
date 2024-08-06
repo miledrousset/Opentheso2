@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/opentheso10">
+<Context path="/opentheso2">
   <Resource auth="Container" factory="org.jboss.weld.resources.ManagerObjectFactory" name="BeanManager" type="jakarta.enterprise.inject.spi.BeanManager"/>
 </Context>
-

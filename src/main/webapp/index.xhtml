@@ -4,7 +4,14 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
+    <f:view>
+        <f:metadata>
+            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
+            <f:viewParam name="idg" value="#{selectedTheso.idGroupFromUri}"/>
+            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
+            <f:viewAction action="#{selectedTheso.preRenderView}"/>
+        </f:metadata>            
+    </f:view>   
     <h:head>
         <link href="resources/img/icon_opentheso2.png" rel="icon" />
 
@@ -31,22 +38,20 @@
         </h:panelGroup>
         
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+     
+        
     </h:head>
 
     <h:body id="page-top" onload="initMenu();" style="overflow-x: hidden;">
 
         <ui:include src="dialog/new-version.xhtml" />
+        
+        <h:form id="sessionControl">
+            <p:idleMonitor timeout="#{connect.timeout}">
+                <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
+            </p:idleMonitor>
+        </h:form>
 
-        <p:idleMonitor timeout="#{connect.timeout}">
-            <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
-        </p:idleMonitor>
-
-        <f:metadata>
-            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
-            <f:viewParam name="idg" value="#{selectedTheso.idGroupFromUri}"/>
-            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
-            <f:viewAction action="#{selectedTheso.preRenderView}"/>
-        </f:metadata>
 
         <style type="text/css">
             .ui-growl {

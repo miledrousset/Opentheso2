@@ -22,7 +22,7 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import org.primefaces.PrimeFaces;
-import fr.cnrs.opentheso.ws.openapi.helper.ApiKeyHelper;
+//import fr.cnrs.opentheso.ws.openapi.helper.ApiKeyHelper;
 
 /**
  * Bean pour la gestion des actions de compte utilisateur telles que la mise à jour des informations de profil et des clés API.
@@ -38,7 +38,7 @@ public class MyAccountBean implements Serializable {
     @Inject private CurrentUser currentUser;
 
     private NodeUser nodeUser;
-    private ApiKeyHelper apiKeyHelper = new ApiKeyHelper();
+//    private ApiKeyHelper apiKeyHelper = new ApiKeyHelper();
     private String passWord1;
     private String passWord2;
     private String displayedKey;
@@ -81,7 +81,7 @@ public class MyAccountBean implements Serializable {
      * @throws SQLException si une erreur d'accès à la base de données se produit.
      */
     public void updateKey() throws SQLException {
-        displayedKey = apiKeyHelper.generateApiKey("ot_", 64);
+    /*    displayedKey = apiKeyHelper.generateApiKey("ot_", 64);
         FacesMessage msg;
         nodeUser.setApiKey(displayedKey);
         if(apiKeyHelper.saveApiKey(MD5Password.getEncodedPassword(displayedKey), nodeUser.getIdUser())){
@@ -90,7 +90,7 @@ public class MyAccountBean implements Serializable {
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Erreur de sauvegarde de la clé.");
         }
         FacesContext.getCurrentInstance().addMessage(null, msg);
-
+*/
     }
 
     /**
@@ -245,14 +245,14 @@ public class MyAccountBean implements Serializable {
 
 // Getters et Setters
 
-    public ApiKeyHelper getApiKeyHelper() {
+/*    public ApiKeyHelper getApiKeyHelper() {
         return apiKeyHelper;
     }
 
     public void setApiKeyHelper(ApiKeyHelper apiKeyHelper) {
         this.apiKeyHelper = apiKeyHelper;
     }
-
+*/
     public Boolean getKeyExpired() {
         return isKeyExpired;
     }

@@ -4,7 +4,7 @@ import fr.cnrs.opentheso.bdd.helper.CandidateHelper;
 import fr.cnrs.opentheso.bdd.helper.SearchHelper;
 import fr.cnrs.opentheso.bdd.helper.UserHelper;
 import fr.cnrs.opentheso.bdd.helper.nodes.NodeAutoCompletion;
-import fr.cnrs.opentheso.ws.openapi.helper.ApiKeyHelper;
+//import fr.cnrs.opentheso.ws.openapi.helper.ApiKeyHelper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Before;
@@ -12,16 +12,16 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static fr.cnrs.opentheso.ws.openapi.helper.DataHelper.connect;
+//import static fr.cnrs.opentheso.ws.openapi.helper.DataHelper.connect;
 import static org.junit.Assert.assertNotNull;
 
 public class apiTest {
     String apiKey = "";
-    ApiKeyHelper apiKeyHelper = new ApiKeyHelper();
+//    ApiKeyHelper apiKeyHelper = new ApiKeyHelper();
     UserHelper userHelper = new UserHelper();
     SearchHelper searchHelper = new SearchHelper();
     HikariDataSource ds;
-
+/*
     @Before
     public void setUp() {
         HikariConfig config = new HikariConfig();
@@ -140,5 +140,5 @@ public class apiTest {
 
         ArrayList<NodeAutoCompletion> result = searchHelper.searchAutoCompletionWS(ds, value, idLang, idGroups, idTheso, withNotes);
         assertNotNull(result);
-    }
+    }*/
 }

@@ -212,7 +212,7 @@ public class DataGraphView implements Serializable {
     }
 
     public void redirectToGraphVisualization(String viewId) throws IOException {
-        System.out.println("visualisation " + viewId);
+    //    System.out.println("visualisation " + viewId);
         GraphObject view = graphService.getView(viewId);
 
         if (view == null) {

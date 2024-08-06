@@ -2,6 +2,7 @@ package fr.cnrs.opentheso.ws.openapi.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.primefaces.shaded.json.JSONObject;
 
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

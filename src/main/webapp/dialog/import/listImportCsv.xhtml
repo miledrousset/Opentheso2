@@ -7,7 +7,8 @@
     <p:dialog id="idListImportCsv" header="#{langueBean.getMsg('rightbody.concept.import_tabulated_list')}" widgetVar="listImportCsv" 
               width="auto" showEffect="fade" modal="true" resizable="true" position="top" style="margin-top: 30px" >
 
-        <h:panelGroup id="listImportCsvForm">   
+        <h:form id="listImportCsvForm">  
+
             <p:panel style="height: 550px; margin-top: -20px;">
                 <div class="row">
                     <div class="col-6" >
@@ -121,14 +122,14 @@
                                                  value="#{langueBean.getMsg('btnBack')}" icon="fas fa-undo-alt" styleClass="ui-button-secondary button"
                                                  style="margin-right: 30px"
                                                  action="#{importFileBean.init()}"
-                                                 update="idListImportCsv"
+                                                 update="containerIndex:rightTab:idListImportCsv"
                                                  oncomplete="PF('listImportCsv').hide();" />
 
                                 <p:commandButton id="buttonImportCsv" widgetVar="buttonImportCsv"
                                                  value="#{langueBean.getMsg('candidat.import')}" styleClass="ui-button-success" icon="fa fa-download"
                                                  update="panelListCsv"
                                                  actionListener="#{importFileBean.addListCsvToConcept(conceptView.nodeFullConcept)}"
-                                                 ajax="true"
+                                                 ajax="true" process="@this"
                                                  disabled="#{!importFileBean.loadDone}" />
                             </div>                             
                         </div>
@@ -159,7 +160,7 @@
                     
                 </h:panelGroup>
             </p:panel>
-        </h:panelGroup>
+                </h:form>
         <p:spacer height="10px;" />
     </p:dialog> 
 </ui:fragment>

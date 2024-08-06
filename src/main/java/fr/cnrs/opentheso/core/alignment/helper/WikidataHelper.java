@@ -12,6 +12,7 @@ import org.apache.jena.query.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
@@ -28,7 +29,20 @@ import java.net.URL;
 import java.net.URLEncoder;
 import jakarta.json.Json;
 import jakarta.json.JsonReader;
+import java.util.Collections;
 import javax.net.ssl.HttpsURLConnection;
+
+
+
+import org.eclipse.rdf4j.model.Value;
+import org.eclipse.rdf4j.query.BindingSet;
+import org.eclipse.rdf4j.query.MalformedQueryException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.eclipse.rdf4j.query.TupleQuery;
+import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.eclipse.rdf4j.repository.RepositoryConnection;
+import org.eclipse.rdf4j.repository.RepositoryException;
+import org.eclipse.rdf4j.repository.sparql.SPARQLRepository;
 
 /**
  *
@@ -161,90 +175,72 @@ public class WikidataHelper {
      * @param source
      * @return
      */
+    
     public List<NodeAlignment> queryWikidata_sparql(String idC, String idTheso, String lexicalValue, String lang,
             String requete, String source) {
-
         List<NodeAlignment> listAlignValues = new ArrayList<>();
+
+        String sparqlEndpoint = "https://query.wikidata.org/sparql";
+        SPARQLRepository repo = new SPARQLRepository(sparqlEndpoint);
+
+        String userAgent = "opentheso";
+        repo.setAdditionalHttpHeaders( Collections.singletonMap("User-Agent", userAgent ) );
         
-        try {
-            Endpoint sp = new Endpoint("https://query.wikidata.org/sparql", false);
-            requete = requete.replaceAll("##value##", lexicalValue);
-            requete = requete.replaceAll("##lang##", lang);
+        
+        List<Map<String, String>> resultsList = new ArrayList<>();
 
-            HashMap<String, HashMap> rs = sp.query(requete);
-            if (rs == null) {
-                return null;
+        try (RepositoryConnection conn = repo.getConnection()) {
+            TupleQuery query = conn.prepareTupleQuery(requete);
+            try (TupleQueryResult result = query.evaluate()) {
+                while (result.hasNext()) {
+                    BindingSet bindingSet = result.next();
+                    Map<String, String> resultMap = new HashMap<>();
+
+                    for (String bindingName : bindingSet.getBindingNames()) {
+                        Value value = bindingSet.getValue(bindingName);
+                        if (value != null) {
+                            resultMap.put(bindingName, value.stringValue());
+                        }
+                    }
+
+                    resultsList.add(resultMap);
+                }
+            } catch (QueryEvaluationException | RepositoryException ex) {
+                ex.printStackTrace();
             }
-
-            List<HashMap<String, Object>> rows_queryWikidata = (ArrayList) rs.get("result").get("rows");
-
-            for (HashMap<String, Object> hashMap : rows_queryWikidata) {
-                NodeAlignment na = new NodeAlignment();
-                na.setInternal_id_concept(idC);
-                na.setInternal_id_thesaurus(idTheso);
-
-                // label ou Nom
-                if (hashMap.get("itemLabel") != null) {
-                    na.setConcept_target(hashMap.get("itemLabel").toString());
-                } else {
-                    continue;
-                }
-
-                // description
-                if (hashMap.get("itemDescription") != null) {
-                    na.setDef_target(hashMap.get("itemDescription").toString());
-                } else {
-                    na.setDef_target("");
-                }
-
-                na.setThesaurus_target(source);
-
-                // URI
-                if (hashMap.get("item") != null) {
-                    na.setUri_target(hashMap.get("item").toString());
-                } else {
-                    continue;
-                }
-                listAlignValues.add(na);
+            
+        } catch (RepositoryException | MalformedQueryException ex) {
+            ex.printStackTrace();
+        }        
+        for (Map<String, String> result : resultsList) {
+            NodeAlignment na = new NodeAlignment();
+            na.setInternal_id_concept(idC);
+            na.setInternal_id_thesaurus(idTheso);    
+            
+            // label ou Nom
+            if (result.get("itemLabel") != null) {
+                na.setConcept_target(result.get("itemLabel"));
+            } else {
+                continue;
+            }       
+            // description
+            if (result.get("itemDescription") != null) {
+                na.setDef_target(result.get("itemDescription"));
+            } else {
+                na.setDef_target("");
+            }     
+            na.setThesaurus_target(source);            
+            // URI
+            if (result.get("item") != null) {
+                na.setUri_target(result.get("item"));
+            } else {
+                continue;
             }
-        } catch (EndpointException eex) {
-            messages.append(eex.toString());
-            System.err.println(eex.toString());
-            return null;
-        } catch (Exception e) {
-            messages.append(requete);
-            messages.append(e.toString());
-            messages.append(" ou pas de connexion internet !! ");
-            System.err.println(e.toString());
-            return null;
-        }
+            listAlignValues.add(na);            
+        }         
         return listAlignValues;
     }
     
-    
-    public void test(){
-        // Définir l'URL du service SPARQL (par exemple, DBpedia)
-        String sparqlEndpoint = "https://dbpedia.org/sparql";
-
-        // Définir la requête SPARQL
-        String sparqlQuery = "SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object } LIMIT 10";
-
-        // Créer une QueryExecution pour exécuter la requête
-        Query query = QueryFactory.create(sparqlQuery);
-        try (QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query)) {
-            // Exécuter la requête et obtenir les résultats
-            ResultSet results = qexec.execSelect();
-
-            // Afficher les résultats
-            while (results.hasNext()) {
-                QuerySolution soln = results.nextSolution();
-                System.out.println(soln);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }    
-
     /**
      * Cette fonction permet de récupérer les options de Wikidata Images,
      * alignements, traductions....ource

@@ -54,9 +54,12 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.model.DefaultStreamedContent;
 
 import org.primefaces.model.StreamedContent;
+
+/*
 import virtuoso.jena.driver.VirtGraph;
 import virtuoso.jena.driver.VirtuosoUpdateFactory;
 import virtuoso.jena.driver.VirtuosoUpdateRequest;
+*/
 
 /**
  *
@@ -170,7 +173,7 @@ public class ExportFileBean implements Serializable {
                 return;
             }
 
-            boolean resultat = exportThesorusToVirtuoso(skosxd, viewEditionBean.getNomGraphe(), viewEditionBean.getUrlServer(),
+      /*      boolean resultat = exportThesorusToVirtuoso(skosxd, viewEditionBean.getNomGraphe(), viewEditionBean.getUrlServer(),
                     viewEditionBean.getLogin(), viewEditionBean.getPassword());
 
             if (resultat) {
@@ -178,8 +181,9 @@ public class ExportFileBean implements Serializable {
                         "Exportation du thésaurus '" + viewExportBean.getNodeIdValueOfTheso().getId() + "' est terminée avec succès"));
                 PrimeFaces.current().ajax().update("messageIndex");
             }
-
+*/
         }
+              
     }
 
     private void createMatrice(String[][] tab, NodeTree concept) {
@@ -976,7 +980,7 @@ public class ExportFileBean implements Serializable {
         return exportRdf4jHelperNew.getSkosXmlDocument();
     }
 
-    private boolean exportThesorusToVirtuoso(SKOSXmlDocument skosxd, String nomGraphe, String url, String login, String password) {
+/*    private boolean exportThesorusToVirtuoso(SKOSXmlDocument skosxd, String nomGraphe, String url, String login, String password) {
 
         VirtGraph virtGraph = null;
         try {
@@ -1014,7 +1018,7 @@ public class ExportFileBean implements Serializable {
             PrimeFaces.current().executeScript("PF('waitDialog').hide();");
             return false;
         }
-    }
+    }*/
 
     private SKOSXmlDocument getThesorusDatas(String idTheso, List<String> selectedGroups) {
 

@@ -5,6 +5,15 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+    <f:view>
+        <f:metadata>
+            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
+            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
+            <f:viewAction action="#{selectedTheso.preRenderView}"/>
+        </f:metadata>            
+    </f:view>
+    
+    
     <h:head>
         <title>Opentheso</title>
 
@@ -20,16 +29,12 @@
     </h:head>
 
     <h:body id="page-top" onload="initMenu()">
-
+        
         <p:idleMonitor timeout="#{connect.timeout}">
             <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
         </p:idleMonitor>
 
-        <f:metadata>
-            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
-            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
-            <f:viewAction action="#{selectedTheso.preRenderView}"/>
-        </f:metadata>
+
 
         <p:growl id="messageIndex" globalOnly="true" showDetail="true"/>
 
@@ -178,7 +183,7 @@
                                                 <h:outputText value="Veuillez selectionez un thésaurus : " />
                                                 <p:dataTable var="thes" value="#{atelierThesBean.nodeListTheso}" 
                                                              selection="#{atelierThesBean.thesoSelected}" rowKey="#{thes.id}" style="margin-top: 10px" lazy="false">
-                                                    <p:column selectionMode="single" style="width: 35px; text-align: center" />
+                                                    <p:column style="width: 35px; text-align: center" />
                                                     <p:column headerText="Id">
                                                         <h:outputText value="#{thes.id}" />
                                                     </p:column>

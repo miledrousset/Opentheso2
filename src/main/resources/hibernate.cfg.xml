@@ -5,9 +5,9 @@
 <hibernate-configuration>
 
     <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/opentheso</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5433/opentheso2</property>
         <property name="hibernate.connection.username">opentheso</property>
         <property name="hibernate.connection.password">opentheso</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>

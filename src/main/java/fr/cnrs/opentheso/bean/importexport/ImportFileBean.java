@@ -3056,10 +3056,10 @@ public class ImportFileBean implements Serializable {
                     nodeFullConcept.getIdentifier(),
                     conceptView.getSelectedLang());
 
-            if (pf.isAjaxRequest()) {
-                pf.ajax().update("formRightTab:viewTabConcept:idConceptNarrower");
-                pf.ajax().update("formLeftTab:tabTree:tree");
-            }
+    /*        if (pf.isAjaxRequest()) {
+                pf.ajax().update("containerIndex:rightTab:idConceptNarrower");
+                pf.ajax().update("containerIndex:formLeftTab:tabTree");
+            }*/
 
         } catch (Exception e) {
             error.append(System.getProperty("line.separator"));

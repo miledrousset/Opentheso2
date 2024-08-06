@@ -1,5 +1,5 @@
 package graph;
-
+/*
 import com.zaxxer.hikari.HikariDataSource;
 import connexion.ConnexionTest;
 import fr.cnrs.opentheso.bdd.datas.Thesaurus;
@@ -39,7 +39,7 @@ public class Graph {
     public Graph() {
     }
 
-    private NodeGraphD3js nodeGraphD3js;
+ /*   private NodeGraphD3js nodeGraphD3js;
     private String defaultLang;
     private NodePreference nodePreference;
     private UriHelper uriHelper;
@@ -199,7 +199,7 @@ public class Graph {
         
         node.setProperties(properties);
         return node;
-    }
+    }*/
     
     /**
      * Datas for external links
@@ -210,7 +210,7 @@ public class Graph {
         uri: "http://wikidata/..."
       }
      */
-    private Node getDatasOfExternalLink(String id){
+/*    private Node getDatasOfExternalLink(String id){
         Node node = new Node();
         
         node.setId(id);
@@ -223,7 +223,7 @@ public class Graph {
         properties.setUri(id);
         return properties;
     } 
-    
+    */
     
     /**
      * Datas for Concepts
@@ -231,7 +231,7 @@ public class Graph {
      * @param idTheso
      * @return 
      */
-    private Node getDatasOfNode(NodeFullConcept nodeFullConcept, String idTheso){
+ /*   private Node getDatasOfNode(NodeFullConcept nodeFullConcept, String idTheso){
         Node node = new Node();
         node.setId(nodeFullConcept.getUri());//idTheso + "." + nodeFullConcept.getIdentifier());
         node.setLabels(getNodeLabel(nodeFullConcept));
@@ -275,9 +275,9 @@ public class Graph {
         }
         return labels;
     }    
+    */
     
-    
-    
+    /*
     
     
     private List<Relationship> getRelationship(NodeFullConcept nodeFullConcept, String idTheso){
@@ -367,11 +367,11 @@ public class Graph {
         relationships.add(relationship);
 
         return relationships;
-    }
+    }*/
     
     
     
-    
+    /*
     
     
     private String getJsonFromNodeGraphD3js(){
@@ -431,12 +431,12 @@ public class Graph {
         nodeRoot.add("relationships", jsonArrayRelationships.build());        
         return nodeRoot.build().toString();
     }         
-    
+    */
     
 
 
 
-    
+   /* 
     
     @Test
     public void getChildren() {
@@ -458,6 +458,7 @@ public class Graph {
             System.out.println(path.toString());
         }
     }
+    */
 
 
 

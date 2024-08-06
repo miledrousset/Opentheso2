@@ -28,7 +28,14 @@
 
     <dependencies>
         
+        <!-- QrCode -->
+        <dependency>
+            <groupId>io.nayuki</groupId>
+            <artifactId>qrcodegen</artifactId>
+            <version>1.8.0</version>
+        </dependency>     
         
+        <!-- Utils  -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-compress</artifactId>
@@ -82,7 +89,7 @@
         
         
         
-        <!-- RDF4J -->
+        <!-- Rdf4j OK Tomca 10 -->              
         <dependency>
             <groupId>org.eclipse.rdf4j</groupId>
             <artifactId>rdf4j-model</artifactId>
@@ -113,8 +120,50 @@
             <artifactId>rdf4j-rio-rdfjson</artifactId>
             <version>5.0.1</version>
         </dependency>        
-        
-        
+        <dependency>
+            <groupId>org.eclipse.rdf4j</groupId>
+            <artifactId>rdf4j-queryresultio-sparqljson</artifactId>
+            <version>5.0.1</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.eclipse.rdf4j</groupId>
+            <artifactId>rdf4j-repository-sparql</artifactId>
+            <version>5.0.1</version>
+        </dependency>            
+
+
+        <!-- envoie de mail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>2.0.1</version>
+        </dependency>      
+
+        <dependency>
+            <groupId>com.github.themrleon</groupId>
+            <artifactId>JSF2Leaf</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>co.elastic.clients</groupId>
+          <artifactId>elasticsearch-java</artifactId>
+          <version>8.14.3</version>
+        </dependency>  
+
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13.4</version>
+        </dependency>
+
         <!-- Neo4j -->
         <dependency>
             <groupId>org.neo4j.driver</groupId>
@@ -130,9 +179,19 @@
             <type>pom</type>
         </dependency>        
         
+        <!-- OpenApi -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-jaxrs2-jakarta</artifactId>
+            <version>2.2.22</version>
+        </dependency>        
         
-        
-        
+        <!-- GraphQl -->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java</artifactId>
+            <version>22.1</version>
+        </dependency>        
         
         
         
@@ -208,7 +267,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>13.0.7</version>
+            <version>14.0.2</version>
             <classifier>jakarta</classifier>
         </dependency>
         <dependency>

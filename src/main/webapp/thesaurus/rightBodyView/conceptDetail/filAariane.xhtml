@@ -178,9 +178,10 @@
                 <!-- Fin de gestion de Handle -->                
                 
 
-                <p:menuitem value="#{langueBean.getMsg('rightbody.concept.import_tabulated_list')}"
+                <p:menuitem rendered="#{currentUser.nodeUser != null and (currentUser.hasRoleAsManager)}" 
+                            value="#{langueBean.getMsg('rightbody.concept.import_tabulated_list')}"
                             actionListener="#{editConcept.infosDelete()}" icon="fas fa-file-download"
-                            update="idListImportCsv listImportCsvForm" action="#{importFileBean.init()}"
+                            update="containerIndex:rightTab:idListImportCsv containerIndex:rightTab:listImportCsvForm" action="#{importFileBean.init()}"
                             oncomplete="PF('listImportCsv').show();"/>
                 
                 <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>

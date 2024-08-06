@@ -45,6 +45,7 @@ public class Connect implements Serializable{
         workLanguage = bundlePref.getString("workLanguage");
         defaultThesaurusId = bundlePref.getString("defaultThesaurusId");
         newVersionService.isNewVersionExist();
+        initLiquibase();           
     }    
 
     
@@ -102,13 +103,12 @@ public class Connect implements Serializable{
         openConnexionPool();
     }
 
-    private void openConnexionPool() {
+    private Properties getProperties(){
         ResourceBundle resourceBundle = getBundlePool();
         if(resourceBundle == null){
             // retour pour installation
-            return;
-        }
-
+            return null;
+        }        
         Properties props = new Properties();
         props.setProperty("dataSourceClassName", resourceBundle.getString("dataSourceClassName"));
         props.setProperty("dataSource.user", resourceBundle.getString("dataSource.user"));
@@ -116,9 +116,21 @@ public class Connect implements Serializable{
         props.setProperty("dataSource.databaseName", resourceBundle.getString("dataSource.databaseName"));
         
         props.setProperty("dataSource.serverName", resourceBundle.getString("dataSource.serverName"));
-        props.setProperty("dataSource.portNumber", resourceBundle.getString("dataSource.serverPort"));        
+        props.setProperty("dataSource.portNumber", resourceBundle.getString("dataSource.serverPort"));  
+        return props;
+    }
+    
+    private void openConnexionPool() {
+        ResourceBundle resourceBundle = getBundlePool();
+        if(resourceBundle == null){
+            // retour pour installation
+            return;
+        }
+
+        Properties properties = getProperties();
+        if(properties == null) return;
         
-        HikariConfig config = new HikariConfig(props);
+        HikariConfig config = new HikariConfig(properties);
 
         config.setMinimumIdle(Integer.parseInt(resourceBundle.getString("minimumIdle")));
         config.setMaximumPoolSize(Integer.parseInt(resourceBundle.getString("setMaximumPoolSize")));
@@ -128,7 +140,6 @@ public class Connect implements Serializable{
 
         try {
             poolConnexion = new HikariDataSource(config);
-            initLiquibase(resourceBundle.getString("dataSource.user"), resourceBundle.getString("dataSource.password"));            
         } catch (Exception ex) {
         //    logger.error(ex.toString());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getClass().getName(), ex.getMessage()); 
@@ -136,7 +147,9 @@ public class Connect implements Serializable{
         }
      }
     
-    private void initLiquibase(String user, String pass) {
+    private void initLiquibase() {
+        Properties properties = getProperties();
+        
         try (Connection connection = getPoolConnexion().getConnection()) {
             
             // Configure contexts and labels for update
@@ -151,9 +164,9 @@ public class Connect implements Serializable{
             commandScope.addArgumentValue("contexts", contexts.toString());
             commandScope.addArgumentValue("labels", labels.getLabels().toString());            
             commandScope.addArgumentValue("url", connection.getMetaData().getURL());    
-            commandScope.addArgumentValue("username", user);
+            commandScope.addArgumentValue("username", properties.get("dataSource.user"));
             // Passez le mot de passe si nécessaire
-            commandScope.addArgumentValue("password", pass);            
+            commandScope.addArgumentValue("password", properties.get("dataSource.password"));            
             commandScope.execute();
 
         } catch (LiquibaseException | SQLException e) {

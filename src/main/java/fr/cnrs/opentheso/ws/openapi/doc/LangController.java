@@ -7,6 +7,7 @@ package fr.cnrs.opentheso.ws.openapi.doc;
 import fr.cnrs.opentheso.ws.openapi.helper.CustomMediaType;
 import fr.cnrs.opentheso.ws.openapi.helper.LangHelper;
 import fr.cnrs.opentheso.ws.openapi.helper.ResponseHelper;
+import java.math.BigDecimal;
 import java.util.Locale;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
