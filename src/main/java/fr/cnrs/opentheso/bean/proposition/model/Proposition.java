@@ -23,19 +23,19 @@ public class Proposition implements Serializable {
     private List<SynonymPropBean> synonymsProp;
     private List<TraductionPropBean> traductionsProp;
 
-    private NotePropBean note, scopeNote, historyNote, example,
-            editorialNote, definition, changeNote;
+    private List<NotePropBean> note, scopeNotes, historyNotes, examples,
+            editorialNotes, definitions, changeNotes;
 
     
     public Proposition() {
         synonymsProp = new ArrayList<>();
         traductionsProp = new ArrayList<>();
-        note = null;
-        scopeNote = null;
-        historyNote = null;
-        example = null;
-        editorialNote = null;
-        definition = null;
-        changeNote = null;
+        note = new ArrayList<>();
+        scopeNotes = new ArrayList<>();
+        historyNotes = new ArrayList<>();
+        examples = new ArrayList<>();
+        editorialNotes = new ArrayList<>();
+        definitions = new ArrayList<>();
+        changeNotes = new ArrayList<>();
     }
 }

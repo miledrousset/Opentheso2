@@ -29,8 +29,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import org.apache.commons.lang3.StringUtils;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.primefaces.PrimeFaces;
 
@@ -411,37 +411,37 @@ public class NoteBean implements Serializable {
                 }
                 break;
             case "definition":
-                if (!checkExisting(propositionBean.getProposition().getDefinition())) {
+                if (!checkExisting(propositionBean.getProposition().getDefinitions())) {
                     showErrorMessageNote();
                     return;
                 }
                 break;
             case "scopeNote":
-                if (!checkExisting(propositionBean.getProposition().getScopeNote())) {
+                if (!checkExisting(propositionBean.getProposition().getScopeNotes())) {
                     showErrorMessageNote();
                     return;
                 }
                 break;
             case "example":
-                if (!checkExisting(propositionBean.getProposition().getExample())) {
+                if (!checkExisting(propositionBean.getProposition().getExamples())) {
                     showErrorMessageNote();
                     return;
                 }
                 break;
             case "historyNote":
-                if (!checkExisting(propositionBean.getProposition().getHistoryNote())) {
+                if (!checkExisting(propositionBean.getProposition().getHistoryNotes())) {
                     showErrorMessageNote();
                     return;
                 }
                 break;
             case "editorialNote":
-                if (!checkExisting(propositionBean.getProposition().getEditorialNote())) {
+                if (!checkExisting(propositionBean.getProposition().getEditorialNotes())) {
                     showErrorMessageNote();
                     return;
                 }
                 break;
             case "changeNote":
-                if (!checkExisting(propositionBean.getProposition().getChangeNote())) {
+                if (!checkExisting(propositionBean.getProposition().getChangeNotes())) {
                     showErrorMessageNote();
                     return;
                 }
@@ -457,25 +457,25 @@ public class NoteBean implements Serializable {
 
         switch (selectedTypeNote) {
             case "note":
-                propositionBean.getProposition().setNote(notePropBean);
+                propositionBean.getProposition().getNote().add(notePropBean);
                 break;
             case "definition":
-                propositionBean.getProposition().setDefinition(notePropBean);
+                propositionBean.getProposition().getDefinitions().add(notePropBean);
                 break;
             case "scopeNote":
-                propositionBean.getProposition().setScopeNote(notePropBean);
+                propositionBean.getProposition().getScopeNotes().add(notePropBean);
                 break;
             case "example":
-                propositionBean.getProposition().setExample(notePropBean);
+                propositionBean.getProposition().getExamples().add(notePropBean);
                 break;
             case "historyNote":
-                propositionBean.getProposition().setHistoryNote(notePropBean);
+                propositionBean.getProposition().getHistoryNotes().add(notePropBean);
                 break;
             case "editorialNote":
-                propositionBean.getProposition().setEditorialNote(notePropBean);
+                propositionBean.getProposition().getEditorialNotes().add(notePropBean);
                 break;
             case "changeNote":
-                propositionBean.getProposition().setChangeNote(notePropBean);
+                propositionBean.getProposition().getChangeNotes().add(notePropBean);
                 break;
         }
         
@@ -488,13 +488,15 @@ public class NoteBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    private boolean checkExisting(NotePropBean note) {
-        if(note == null) return true;
-        if (selectedLang.equalsIgnoreCase(note.getLang())
-                && noteValue.equalsIgnoreCase(note.getLexicalvalue())) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", " Cette note existe déjà !");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return false;
+    private boolean checkExisting(List<NotePropBean> notes) {
+        if(CollectionUtils.isEmpty(notes)) return true;
+
+        for (NotePropBean note : notes) {
+            if (selectedLang.equalsIgnoreCase(note.getLang()) && noteValue.equalsIgnoreCase(note.getLexicalvalue())) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur !", " Cette note existe déjà !");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return false;
+            }
         }
         return true;
     }
@@ -630,170 +632,173 @@ public class NoteBean implements Serializable {
 
         switch (selectedTypeNote) {
             case "note":
-                    if (propositionBean.getProposition().getNote().getLexicalvalue()
+                for (NotePropBean note : propositionBean.getProposition().getNote()) {
+                    if (note.getLexicalvalue()
                             .equals(notePropBean.getLexicalvalue())) {
-                        
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getNote().setLexicalvalue(notePropBean.getLexicalvalue());
+                            note.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getNote().getLexicalvalue())) {
-                            propositionBean.getProposition().getNote().setToRemove(false);
-                            propositionBean.getProposition().getNote().setToUpdate(false);
-                            propositionBean.getProposition().getNote().setToAdd(false);
-                            propositionBean.getProposition().getNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getNote().isToRemove()) {
-                            propositionBean.getProposition().getNote().setToUpdate(true);
-                            propositionBean.getProposition().getNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getNote().isToRemove()) {
-                            propositionBean.getProposition().getNote().setToRemove(false);
-                            propositionBean.getProposition().getNote().setToUpdate(true);
-                            propositionBean.getProposition().getNote().setToAdd(false);
-                            propositionBean.getProposition().getNote().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(note.getLexicalvalue())) {
+                            note.setToRemove(false);
+                            note.setToUpdate(false);
+                            note.setToAdd(false);
+                            note.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!note.isToRemove()) {
+                            note.setToUpdate(true);
+                            note.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (note.isToRemove()) {
+                            note.setToRemove(false);
+                            note.setToUpdate(true);
+                            note.setToAdd(false);
+                            note.setLexicalvalue(notePropBean.getLexicalvalue());
                         } else {
-                            propositionBean.getProposition().getNote().setLexicalvalue(notePropBean.getLexicalvalue());
+                            note.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
             case "definition":
-                    if (propositionBean.getProposition().getDefinition().getLexicalvalue()
+                for (NotePropBean definition : propositionBean.getProposition().getDefinitions()) {
+                    if (definition.getLexicalvalue()
                             .equals(notePropBean.getLexicalvalue())) {
-                        
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getDefinition().setLexicalvalue(notePropBean.getLexicalvalue());
+                            definition.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getDefinition().getLexicalvalue())) {
-                            propositionBean.getProposition().getDefinition().setToRemove(false);
-                            propositionBean.getProposition().getDefinition().setToUpdate(false);
-                            propositionBean.getProposition().getDefinition().setToAdd(false);
-                            propositionBean.getProposition().getDefinition().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getDefinition().isToAdd()) {
-                            propositionBean.getProposition().getDefinition().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getDefinition().isToRemove()) {
-                            propositionBean.getProposition().getDefinition().setToUpdate(true);
-                            propositionBean.getProposition().getDefinition().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(definition.getLexicalvalue())) {
+                            definition.setToRemove(false);
+                            definition.setToUpdate(false);
+                            definition.setToAdd(false);
+                            definition.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (definition.isToAdd()) {
+                            definition.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!definition.isToRemove()) {
+                            definition.setToUpdate(true);
+                            definition.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
             case "scopeNote":
-                    if (propositionBean.getProposition().getScopeNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        
+                for (NotePropBean scopteNote : propositionBean.getProposition().getScopeNotes()) {
+                    if (scopteNote.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getScopeNote().setLexicalvalue(notePropBean.getLexicalvalue());
+                            scopteNote.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getScopeNote().getLexicalvalue())) {
-                            propositionBean.getProposition().getScopeNote().setToRemove(false);
-                            propositionBean.getProposition().getScopeNote().setToUpdate(false);
-                            propositionBean.getProposition().getScopeNote().setToAdd(false);
-                            propositionBean.getProposition().getScopeNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getScopeNote().isToAdd()) {
-                            propositionBean.getProposition().getScopeNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getScopeNote().isToRemove()) {
-                            propositionBean.getProposition().getScopeNote().setToUpdate(true);
-                            propositionBean.getProposition().getScopeNote().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(scopteNote.getLexicalvalue())) {
+                            scopteNote.setToRemove(false);
+                            scopteNote.setToUpdate(false);
+                            scopteNote.setToAdd(false);
+                            scopteNote.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (scopteNote.isToAdd()) {
+                            scopteNote.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!scopteNote.isToRemove()) {
+                            scopteNote.setToUpdate(true);
+                            scopteNote.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
             case "example":
-                    if (propositionBean.getProposition().getExample().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        
+                for (NotePropBean example : propositionBean.getProposition().getExamples()) {
+                    if (example.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getExample().setLexicalvalue(notePropBean.getLexicalvalue());
+                            example.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getExample().getLexicalvalue())) {
-                            propositionBean.getProposition().getExample().setToRemove(false);
-                            propositionBean.getProposition().getExample().setToUpdate(false);
-                            propositionBean.getProposition().getExample().setToAdd(false);
-                            propositionBean.getProposition().getExample().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getExample().isToAdd()) {
-                            propositionBean.getProposition().getExample().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getExample().isToRemove()) {
-                            propositionBean.getProposition().getExample().setToUpdate(true);
-                            propositionBean.getProposition().getExample().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(example.getLexicalvalue())) {
+                            example.setToRemove(false);
+                            example.setToUpdate(false);
+                            example.setToAdd(false);
+                            example.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (example.isToAdd()) {
+                            example.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!example.isToRemove()) {
+                            example.setToUpdate(true);
+                            example.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
             case "historyNote":
-                    if (propositionBean.getProposition().getHistoryNote().getLexicalvalue()
+                for (NotePropBean history : propositionBean.getProposition().getHistoryNotes()) {
+                    if (history.getLexicalvalue()
                             .equals(notePropBean.getLexicalvalue())) {
-                        
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getHistoryNote().setLexicalvalue(notePropBean.getLexicalvalue());
+                            history.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getHistoryNote().getLexicalvalue())) {
-                            propositionBean.getProposition().getHistoryNote().setToRemove(false);
-                            propositionBean.getProposition().getHistoryNote().setToUpdate(false);
-                            propositionBean.getProposition().getHistoryNote().setToAdd(false);
-                            propositionBean.getProposition().getHistoryNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getHistoryNote().isToAdd()) {
-                            propositionBean.getProposition().getHistoryNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getHistoryNote().isToRemove()) {
-                            propositionBean.getProposition().getHistoryNote().setToUpdate(true);
-                            propositionBean.getProposition().getHistoryNote().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(history.getLexicalvalue())) {
+                            history.setToRemove(false);
+                            history.setToUpdate(false);
+                            history.setToAdd(false);
+                            history.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (history.isToAdd()) {
+                            history.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!history.isToRemove()) {
+                            history.setToUpdate(true);
+                            history.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
             case "editorialNote":
-                    if (propositionBean.getProposition().getEditorialNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        
+                for (NotePropBean editorial : propositionBean.getProposition().getEditorialNotes()) {
+                    if (editorial.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getEditorialNote().setLexicalvalue(notePropBean.getLexicalvalue());
+                            editorial.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getEditorialNote().getLexicalvalue())) {
-                            propositionBean.getProposition().getEditorialNote().setToRemove(false);
-                            propositionBean.getProposition().getEditorialNote().setToUpdate(false);
-                            propositionBean.getProposition().getEditorialNote().setToAdd(false);
-                            propositionBean.getProposition().getEditorialNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getEditorialNote().isToAdd()) {
-                            propositionBean.getProposition().getEditorialNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getEditorialNote().isToRemove()) {
-                            propositionBean.getProposition().getEditorialNote().setToUpdate(true);
-                            propositionBean.getProposition().getEditorialNote().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(editorial.getLexicalvalue())) {
+                            editorial.setToRemove(false);
+                            editorial.setToUpdate(false);
+                            editorial.setToAdd(false);
+                            editorial.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (editorial.isToAdd()) {
+                            editorial.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!editorial.isToRemove()) {
+                            editorial.setToUpdate(true);
+                            editorial.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
             case "changeNote":
-                    if (propositionBean.getProposition().getChangeNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        
+                for (NotePropBean changeNote : propositionBean.getProposition().getChangeNotes()) {
+                    if (changeNote.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+
                         if (notePropBean.isToAdd()) {
-                            propositionBean.getProposition().getChangeNote().setLexicalvalue(notePropBean.getLexicalvalue());
+                            changeNote.setLexicalvalue(notePropBean.getLexicalvalue());
                             break;
                         }
-                        
-                        if (notePropBean.getOldValue().equalsIgnoreCase(propositionBean.getProposition()
-                                .getChangeNote().getLexicalvalue())) {
-                            propositionBean.getProposition().getChangeNote().setToRemove(false);
-                            propositionBean.getProposition().getChangeNote().setToUpdate(false);
-                            propositionBean.getProposition().getChangeNote().setToAdd(false);
-                            propositionBean.getProposition().getChangeNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (propositionBean.getProposition().getChangeNote().isToAdd()) {
-                            propositionBean.getProposition().getChangeNote().setLexicalvalue(notePropBean.getLexicalvalue());
-                        } else if (!propositionBean.getProposition().getChangeNote().isToRemove()) {
-                            propositionBean.getProposition().getChangeNote().setToUpdate(true);
-                            propositionBean.getProposition().getChangeNote().setLexicalvalue(notePropBean.getLexicalvalue());
+
+                        if (notePropBean.getOldValue().equalsIgnoreCase(changeNote.getLexicalvalue())) {
+                            changeNote.setToRemove(false);
+                            changeNote.setToUpdate(false);
+                            changeNote.setToAdd(false);
+                            changeNote.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (changeNote.isToAdd()) {
+                            changeNote.setLexicalvalue(notePropBean.getLexicalvalue());
+                        } else if (!changeNote.isToRemove()) {
+                            changeNote.setToUpdate(true);
+                            changeNote.setLexicalvalue(notePropBean.getLexicalvalue());
                         }
                     }
+                }
                 break;
         }
         
@@ -882,26 +887,28 @@ public class NoteBean implements Serializable {
         }
     }       
 
-    public NotePropBean nodePropToEdit() {
+    public List<NotePropBean> nodePropToEdit() {
         if (selectedTypeNote == null) {
-            return new NotePropBean();
+            return List.of(new NotePropBean());
         }
-        if(propositionBean.getProposition() == null) return new NotePropBean();
+
+        if(propositionBean.getProposition() == null) return List.of(new NotePropBean());
+
         switch (selectedTypeNote) {
             case "note":
                 return propositionBean.getProposition().getNote();
             case "definition":
-                return propositionBean.getProposition().getDefinition();
+                return propositionBean.getProposition().getDefinitions();
             case "scopeNote":
-                return propositionBean.getProposition().getScopeNote();
+                return propositionBean.getProposition().getScopeNotes();
             case "example":
-                return propositionBean.getProposition().getExample();
+                return propositionBean.getProposition().getExamples();
             case "historyNote":
-                return propositionBean.getProposition().getHistoryNote();
+                return propositionBean.getProposition().getHistoryNotes();
             case "editorialNote":
-                return propositionBean.getProposition().getEditorialNote();
+                return propositionBean.getProposition().getEditorialNotes();
             default:
-                return propositionBean.getProposition().getChangeNote();
+                return propositionBean.getProposition().getChangeNotes();
         }
     }
 
@@ -1065,119 +1072,111 @@ public class NoteBean implements Serializable {
 
         switch (selectedTypeNote) {
             case "note":
-                    if (propositionBean.getProposition().getNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getNote().isToAdd()) {
-                            propositionBean.getProposition().setNote(null);
-                        } else if (propositionBean.getProposition().getNote().isToUpdate()) {
-                            propositionBean.getProposition().getNote().setToUpdate(false);
-                            propositionBean.getProposition().getNote().setToRemove(true);
-                            propositionBean.getProposition().getNote()
-                                    .setLexicalvalue(notePropBean.getOldValue());
+                for (NotePropBean note : propositionBean.getProposition().getNote()) {
+                    if (note.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (note.isToAdd()) {
+                            propositionBean.getProposition().getNote().remove(note);
+                        } else if (note.isToUpdate()) {
+                            note.setToUpdate(false);
+                            note.setToRemove(true);
+                            note.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getNote().setToRemove(
-                                    !propositionBean.getProposition().getNote().isToRemove());
+                            note.setToRemove(!note.isToRemove());
                         }
                     }
+                }
                 break;
             case "definition":
-                    if (propositionBean.getProposition().getDefinition().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getDefinition().isToAdd()) {
-                            propositionBean.getProposition().setDefinition(null);
-                        } else if (propositionBean.getProposition().getDefinition().isToUpdate()) {
-                            propositionBean.getProposition().getDefinition().setToUpdate(false);
-                            propositionBean.getProposition().getDefinition().setToRemove(true);
-                            propositionBean.getProposition().getDefinition()
-                                    .setLexicalvalue(notePropBean.getOldValue());
+                for (NotePropBean definition : propositionBean.getProposition().getDefinitions()) {
+                    if (definition.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (definition.isToAdd()) {
+                            propositionBean.getProposition().getDefinitions().remove(definition);
+                        } else if (definition.isToUpdate()) {
+                            definition.setToUpdate(false);
+                            definition.setToRemove(true);
+                            definition.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getDefinition().setToRemove(
-                                    !propositionBean.getProposition().getDefinition().isToRemove());
+                            definition.setToRemove(!definition.isToRemove());
                         }
                     }
-                
+                }
                 break;
             case "scopeNote":
-                    if (propositionBean.getProposition().getScopeNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getScopeNote().isToAdd()) {
-                            propositionBean.getProposition().setScopeNote(null);
-                        } else if (propositionBean.getProposition().getScopeNote().isToUpdate()) {
-                            propositionBean.getProposition().getScopeNote().setToUpdate(false);
-                            propositionBean.getProposition().getScopeNote().setToRemove(true);
-                            propositionBean.getProposition().getScopeNote()
-                                    .setLexicalvalue(notePropBean.getOldValue());
+                for (NotePropBean scopeNote : propositionBean.getProposition().getScopeNotes()) {
+                    if (scopeNote.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (scopeNote.isToAdd()) {
+                            propositionBean.getProposition().getScopeNotes().remove(scopeNote);
+                        } else if (scopeNote.isToUpdate()) {
+                            scopeNote.setToUpdate(false);
+                            scopeNote.setToRemove(true);
+                            scopeNote.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getScopeNote().setToRemove(
-                                    !propositionBean.getProposition().getScopeNote().isToRemove());
+                            scopeNote.setToRemove(!scopeNote.isToRemove());
                         }
                     }
-                
+                }
                 break;
             case "example":
-                    if (propositionBean.getProposition().getExample().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getExample().isToAdd()) {
-                            propositionBean.getProposition().setExample(null);
-                        } else if (propositionBean.getProposition().getExample().isToUpdate()) {
-                            propositionBean.getProposition().getExample().setToUpdate(false);
-                            propositionBean.getProposition().getExample().setToRemove(true);
-                            propositionBean.getProposition().getExample()
-                                    .setLexicalvalue(notePropBean.getOldValue());
+                for (NotePropBean example : propositionBean.getProposition().getExamples()) {
+                    if (example.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (example.isToAdd()) {
+                            propositionBean.getProposition().getExamples().remove(example);
+                        } else if (example.isToUpdate()) {
+                            example.setToUpdate(false);
+                            example.setToRemove(true);
+                            example.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getExample().setToRemove(
-                                    !propositionBean.getProposition().getExample().isToRemove());
+                            example.setToRemove(!example.isToRemove());
                         }
                     }
+                }
                 break;
             case "historyNote":
-                    if (propositionBean.getProposition().getHistoryNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getHistoryNote().isToAdd()) {
-                            propositionBean.getProposition().setHistoryNote(null);
-                        } else if (propositionBean.getProposition().getHistoryNote().isToUpdate()) {
-                            propositionBean.getProposition().getHistoryNote().setToUpdate(false);
-                            propositionBean.getProposition().getHistoryNote().setToRemove(true);
-                            propositionBean.getProposition().getHistoryNote()
-                                    .setLexicalvalue(notePropBean.getOldValue());
+                for (NotePropBean history : propositionBean.getProposition().getHistoryNotes()) {
+                    if (history.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (history.isToAdd()) {
+                            propositionBean.getProposition().getHistoryNotes().remove(history);
+                        } else if (history.isToUpdate()) {
+                            history.setToUpdate(false);
+                            history.setToRemove(true);
+                            history.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getHistoryNote().setToRemove(
-                                    !propositionBean.getProposition().getHistoryNote().isToRemove());
+                            history.setToRemove(!history.isToRemove());
                         }
                     }
+                }
                 break;
             case "editorialNote":
-                    if (propositionBean.getProposition().getEditorialNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getEditorialNote().isToAdd()) {
-                            propositionBean.getProposition().setEditorialNote(null);
-                        } else if (propositionBean.getProposition().getEditorialNote().isToUpdate()) {
-                            propositionBean.getProposition().getEditorialNote().setToUpdate(false);
-                            propositionBean.getProposition().getEditorialNote().setToRemove(true);
-                            propositionBean.getProposition().getEditorialNote()
-                                    .setLexicalvalue(notePropBean.getOldValue());
+                for (NotePropBean editorial : propositionBean.getProposition().getEditorialNotes()) {
+                    if (editorial.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (editorial.isToAdd()) {
+                            propositionBean.getProposition().getEditorialNotes().remove(editorial);
+                        } else if (editorial.isToUpdate()) {
+                            editorial.setToUpdate(false);
+                            editorial.setToRemove(true);
+                            editorial.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getEditorialNote().setToRemove(
-                                    !propositionBean.getProposition().getEditorialNote().isToRemove());
+                            editorial.setToRemove(!editorial.isToRemove());
                         }
                     }
-                
+                }
+
                 break;
             case "changeNote":
-                    if (propositionBean.getProposition().getChangeNote().getLexicalvalue()
-                            .equals(notePropBean.getLexicalvalue())) {
-                        if (propositionBean.getProposition().getChangeNote().isToAdd()) {
-                            propositionBean.getProposition().setChangeNote(null);
-                        } else if (propositionBean.getProposition().getChangeNote().isToUpdate()) {
-                            propositionBean.getProposition().getChangeNote().setToUpdate(false);
-                            propositionBean.getProposition().getChangeNote().setToRemove(true);
-                            propositionBean.getProposition().getChangeNote().setLexicalvalue(notePropBean.getOldValue());
+
+                for (NotePropBean changeNote : propositionBean.getProposition().getChangeNotes()) {
+                    if (changeNote.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
+                        if (changeNote.isToAdd()) {
+                            propositionBean.getProposition().getChangeNotes().remove(changeNote);
+                        } else if (changeNote.isToUpdate()) {
+                            changeNote.setToUpdate(false);
+                            changeNote.setToRemove(true);
+                            changeNote.setLexicalvalue(notePropBean.getOldValue());
                         } else {
-                            propositionBean.getProposition().getChangeNote().setToRemove(
-                                    !propositionBean.getProposition().getChangeNote().isToRemove());
+                            changeNote.setToRemove(!changeNote.isToRemove());
                         }
                     }
-                
+                }
                 break;
         }
         
