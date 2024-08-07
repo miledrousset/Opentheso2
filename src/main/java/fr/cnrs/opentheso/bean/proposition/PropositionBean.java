@@ -310,7 +310,7 @@ public class PropositionBean implements Serializable {
         if (currentUser.getNodeUser() == null) {
             rightBodySetting.setIndex("2");
         } else {
-            if (roleOnThesoBean.getNodeUserRoleGroup().isIsContributor()) {
+            if (ObjectUtils.isNotEmpty(roleOnThesoBean.getNodeUserRoleGroup()) && roleOnThesoBean.getNodeUserRoleGroup().isIsContributor()) {
                 rightBodySetting.setIndex("2");
             } else {
                 rightBodySetting.setIndex("3");

@@ -1072,7 +1072,8 @@ public class NoteBean implements Serializable {
 
         switch (selectedTypeNote) {
             case "note":
-                for (NotePropBean note : propositionBean.getProposition().getNote()) {
+                for (int i = 0; i < propositionBean.getProposition().getNote().size(); i++) {
+                    var note = propositionBean.getProposition().getNote().get(i);
                     if (note.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (note.isToAdd()) {
                             propositionBean.getProposition().getNote().remove(note);
@@ -1087,7 +1088,8 @@ public class NoteBean implements Serializable {
                 }
                 break;
             case "definition":
-                for (NotePropBean definition : propositionBean.getProposition().getDefinitions()) {
+                for (int i = 0; i < propositionBean.getProposition().getDefinitions().size(); i++) {
+                    var definition = propositionBean.getProposition().getDefinitions().get(i);
                     if (definition.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (definition.isToAdd()) {
                             propositionBean.getProposition().getDefinitions().remove(definition);
@@ -1102,7 +1104,8 @@ public class NoteBean implements Serializable {
                 }
                 break;
             case "scopeNote":
-                for (NotePropBean scopeNote : propositionBean.getProposition().getScopeNotes()) {
+                for (int i = 0; i < propositionBean.getProposition().getScopeNotes().size(); i++) {
+                    var scopeNote = propositionBean.getProposition().getScopeNotes().get(i);
                     if (scopeNote.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (scopeNote.isToAdd()) {
                             propositionBean.getProposition().getScopeNotes().remove(scopeNote);
@@ -1117,7 +1120,8 @@ public class NoteBean implements Serializable {
                 }
                 break;
             case "example":
-                for (NotePropBean example : propositionBean.getProposition().getExamples()) {
+                for (int i = 0; i < propositionBean.getProposition().getExamples().size(); i++) {
+                    var example = propositionBean.getProposition().getExamples().get(i);
                     if (example.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (example.isToAdd()) {
                             propositionBean.getProposition().getExamples().remove(example);
@@ -1132,7 +1136,8 @@ public class NoteBean implements Serializable {
                 }
                 break;
             case "historyNote":
-                for (NotePropBean history : propositionBean.getProposition().getHistoryNotes()) {
+                for (int i = 0; i < propositionBean.getProposition().getHistoryNotes().size(); i++) {
+                    var history = propositionBean.getProposition().getHistoryNotes().get(i);
                     if (history.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (history.isToAdd()) {
                             propositionBean.getProposition().getHistoryNotes().remove(history);
@@ -1147,7 +1152,8 @@ public class NoteBean implements Serializable {
                 }
                 break;
             case "editorialNote":
-                for (NotePropBean editorial : propositionBean.getProposition().getEditorialNotes()) {
+                for (int i = 0; i < propositionBean.getProposition().getEditorialNotes().size(); i++) {
+                    var editorial = propositionBean.getProposition().getEditorialNotes().get(i);
                     if (editorial.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (editorial.isToAdd()) {
                             propositionBean.getProposition().getEditorialNotes().remove(editorial);
@@ -1160,11 +1166,10 @@ public class NoteBean implements Serializable {
                         }
                     }
                 }
-
                 break;
             case "changeNote":
-
-                for (NotePropBean changeNote : propositionBean.getProposition().getChangeNotes()) {
+                for (int i = 0; i < propositionBean.getProposition().getChangeNotes().size(); i++) {
+                    var changeNote = propositionBean.getProposition().getChangeNotes().get(i);
                     if (changeNote.getLexicalvalue().equals(notePropBean.getLexicalvalue())) {
                         if (changeNote.isToAdd()) {
                             propositionBean.getProposition().getChangeNotes().remove(changeNote);
@@ -1177,7 +1182,6 @@ public class NoteBean implements Serializable {
                         }
                     }
                 }
-                break;
         }
         
         propositionBean.checkNotePropositionStatus();

@@ -29,7 +29,7 @@
             
             <h:panelGroup style="margin-top: 5px;">
 
-                <h:panelGroup rendered="#{propositionBean.proposition.note != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.note.size() > 0}">
                     <div class="list-group-item list-group-item-action" >
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0" style="text-align: left; ">
@@ -50,7 +50,7 @@
                                         
                                         <p:menuitem value="Supprimer une note" 
                                                     actionListener="#{noteBean.initNoteProp('note')}"
-                                                    update="containerIndex:rightTab:idDeleteNoteProp" 
+                                                    update="containerIndex:rightTab:idDeleteNoteProp"
                                                     oncomplete="PF('deleteNoteProp').show();" icon="fas fa-minus"/>
                                     </p:menuButton>
                                 </h:panelGroup>
@@ -91,7 +91,7 @@
                     </div>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{propositionBean.proposition.changeNotes != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.changeNotes.size() > 0}">
                     <div class="list-group-item list-group-item-action" >
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0" style="text-align: left; ">
@@ -156,7 +156,7 @@
                     </div>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{propositionBean.proposition.definitions != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.definitions.size() > 0}">
                     <div class="list-group-item list-group-item-action" >
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0">
@@ -184,50 +184,52 @@
                                               title="#{langueBean.getMsg('rightbody.concept.definition')}"
                                               style="font-size: 14px; margin-right: 10px; color: #8f8f8f;font-weight: bold;"/>
                             </div>
-                            <div class="col-xl-9 col-lg-8 col-md-7 col-sm-7" style="margin-left: -10px">     
-                                <ui:repeat var="def" value="#{propositionBean.proposition.definitions}" varStatus="status">
-                                    <div class="col-xl-9 col-lg-8 col-md-7 col-sm-7" style="margin-left: -10px">
-                                        <h:panelGroup rendered="#{!def.toAdd and !def.toRemove and !def.toUpdate}"  >
-                                            <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false" 
-                                                          style="color: #666666; font-size: 14px; font-weight: bold"/> 
-                                            <h:outputText value="#{def.lexicalvalue}" escape="false" 
-                                                          style="color: #666666; font-size: 14px;"/> 
-                                        </h:panelGroup>
+                            <div class="col-xl-9 col-lg-8 col-md-7 col-sm-7" style="margin-left: -10px">
+                                <h:panelGroup id="definitionTable">
+                                    <ui:repeat var="def" value="#{propositionBean.proposition.definitions}" varStatus="status">
+                                        <div class="col-xl-9 col-lg-8 col-md-7 col-sm-7" style="margin-left: -10px">
+                                            <h:panelGroup rendered="#{!def.toAdd and !def.toRemove and !def.toUpdate}"  >
+                                                <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false"
+                                                              style="color: #666666; font-size: 14px; font-weight: bold"/>
+                                                <h:outputText value="#{def.lexicalvalue}" escape="false"
+                                                              style="color: #666666; font-size: 14px;"/>
+                                            </h:panelGroup>
 
-                                        <h:panelGroup rendered="#{def.toAdd}" >
-                                            <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false" 
-                                                          style="font-size: 14px; font-weight: bold; color: green;"/> 
+                                            <h:panelGroup rendered="#{def.toAdd}" >
+                                                <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false"
+                                                              style="font-size: 14px; font-weight: bold; color: green;"/>
 
-                                            <h:outputText value="#{def.lexicalvalue}" escape="false" 
-                                                          style="font-size: 14px; color: green;"/>
-                                        </h:panelGroup>
+                                                <h:outputText value="#{def.lexicalvalue}" escape="false"
+                                                              style="font-size: 14px; color: green;"/>
+                                            </h:panelGroup>
 
-                                        <h:panelGroup rendered="#{def.toUpdate}" >
-                                            <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false" 
-                                                          style="font-size: 14px; font-weight: bold; color: blue;"/> 
-                                            <h:outputText value="#{def.lexicalvalue} " escape="false" 
-                                                          style="font-size: 14px; color: blue;"/>
-                                            <h:outputText value="(#{def.oldValue})" escape="false" 
-                                                          style="font-size: 14px; text-decoration : line-through; color: blue;"/>
-                                        </h:panelGroup>
+                                            <h:panelGroup rendered="#{def.toUpdate}" >
+                                                <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false"
+                                                              style="font-size: 14px; font-weight: bold; color: blue;"/>
+                                                <h:outputText value="#{def.lexicalvalue} " escape="false"
+                                                              style="font-size: 14px; color: blue;"/>
+                                                <h:outputText value="(#{def.oldValue})" escape="false"
+                                                              style="font-size: 14px; text-decoration : line-through; color: blue;"/>
+                                            </h:panelGroup>
 
-                                        <h:panelGroup rendered="#{def.toRemove}" >
-                                            <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false" 
-                                                          style="font-size: 14px; text-decoration : line-through; color: red; font-weight: bold;"/> 
+                                            <h:panelGroup rendered="#{def.toRemove}" >
+                                                <h:outputText value="[#{def.lang.toUpperCase()}] " escape="false"
+                                                              style="font-size: 14px; text-decoration : line-through; color: red; font-weight: bold;"/>
 
-                                            <h:outputText value="#{def.lexicalvalue}" escape="false" 
-                                                          style="font-size: 14px; text-decoration : line-through; color: red;"/>
-                                        </h:panelGroup>
+                                                <h:outputText value="#{def.lexicalvalue}" escape="false"
+                                                              style="font-size: 14px; text-decoration : line-through; color: red;"/>
+                                            </h:panelGroup>
 
-                                        <br/>
-                                    </div>
-                                </ui:repeat>
+                                            <br/>
+                                        </div>
+                                    </ui:repeat>
+                                </h:panelGroup>
                             </div>
                         </div>
                     </div>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{propositionBean.proposition.editorialNotes != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.editorialNotes.size() > 0}">
                     <div class="list-group-item list-group-item-action" >
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0">
@@ -293,7 +295,7 @@
                     </div>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{propositionBean.proposition.examples != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.examples.size() > 0}">
                     <div class="list-group-item list-group-item-action" >
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0">
@@ -361,7 +363,7 @@
                     </div>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{propositionBean.proposition.historyNotes != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.historyNotes.size() > 0}">
                     <div class="list-group-item list-group-item-action" >                        
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0" style="text-align: left; ">
@@ -428,7 +430,7 @@
                     </div>
                 </h:panelGroup>
 
-                <h:panelGroup rendered="#{propositionBean.proposition.scopeNotes != null}">
+                <h:panelGroup rendered="#{propositionBean.proposition.scopeNotes.size() > 0}">
                     <div class="list-group-item list-group-item-action" >
                         <div class="row" style="margin-left: 0px; margin-bottom: 5px;">
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-0">
@@ -575,7 +577,7 @@
                 <f:facet name="header">
                     <center>
                         <b>
-                            #{langueBean.getMsg('rightbody.conceptdialog.nameOfConcept')} : 
+                            #{langueBean.getMsg('rightbody.conceptdialog.nameOfConcept')} :
                             #{conceptView.nodeConcept.term.lexical_value.toUpperCase()}
                         </b>
                     </center>
@@ -587,17 +589,10 @@
                     <h:outputText value="#{noteToDelete.lang.toUpperCase()}" style="color: #43B572; text-align: center; font-size: 14px;"/>
                 </p:column>  
                 <p:column width="5" headerText="Supprimer">
-                    <p:commandLink style="color: #FF7979" oncomplete="PF('deleteNoteProp').hide();"
-                                   ajax="true" process="@form" update="containerIndex messageIndex"
-                                   action="#{noteBean.deleteNoteProp(noteToDelete)}"
-                                   rendered="#{!noteToDelete.toRemove}">
+                    <p:commandLink style="color: #FF7979"
+                                   ajax="true" process="@this" update="containerIndex:rightTab:propositionView"
+                                   action="#{noteBean.deleteNoteProp(noteToDelete)}">
                         <i class="pi pi-trash" style="color: red" />
-                    </p:commandLink>
-                    <p:commandLink style="color: #FF7979" oncomplete="PF('deleteNoteProp').hide();"
-                                   ajax="true" process="@form" update="containerIndex messageIndex"
-                                   action="#{noteBean.deleteNoteProp(noteToDelete)}"
-                                   rendered="#{noteToDelete.toRemove}">
-                        <i class="pi pi-pencil" style="color: #43B572" />
                     </p:commandLink>
                 </p:column>                    
             </p:dataTable>

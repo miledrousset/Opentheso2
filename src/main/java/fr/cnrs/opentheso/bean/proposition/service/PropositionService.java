@@ -425,7 +425,7 @@ public class PropositionService implements Serializable {
         if (noteAccepted && CollectionUtils.isNotEmpty(proposition.getNote())) {
             for (NotePropBean note : proposition.getNote()) {
                 if (note.isToAdd()) {
-                    addNewNote(note, "note", propositionSelected.getIdConcept());
+                    addNewNote(note, "note");
                 } else if (note.isToUpdate()) {
                     updateNote(note, "note");
                 } else if (note.isToRemove()) {
@@ -437,7 +437,7 @@ public class PropositionService implements Serializable {
         if (changeNoteAccepted && CollectionUtils.isNotEmpty(proposition.getChangeNotes())) {
             for (NotePropBean changeNote : proposition.getChangeNotes()) {
                 if (changeNote.isToAdd()) {
-                    addNewNote(changeNote, "changeNote", propositionSelected.getIdConcept());
+                    addNewNote(changeNote, "changeNote");
                 } else if (changeNote.isToUpdate()) {
                     updateNote(changeNote, "changeNote");
                 } else if (changeNote.isToRemove()) {
@@ -449,7 +449,7 @@ public class PropositionService implements Serializable {
         if (definitionAccepted && CollectionUtils.isNotEmpty(proposition.getDefinitions())) {
             for (NotePropBean definition : proposition.getDefinitions()) {
                 if (definition.isToAdd()) {
-                    addNewNote(definition, "definition", propositionSelected.getIdConcept());
+                    addNewNote(definition, "definition");
                 } else if (definition.isToUpdate()) {
                     updateNote(definition, "definition");
                 } else if (definition.isToRemove()) {
@@ -461,7 +461,7 @@ public class PropositionService implements Serializable {
         if (editorialNotesAccepted && CollectionUtils.isNotEmpty(proposition.getEditorialNotes())) {
             for (NotePropBean editorialNote : proposition.getEditorialNotes()) {
                 if (editorialNote.isToAdd()) {
-                    addNewNote(editorialNote, "editorialNote", propositionSelected.getIdConcept());
+                    addNewNote(editorialNote, "editorialNote");
                 } else if (editorialNote.isToUpdate()) {
                     updateNote(editorialNote, "editorialNote");
                 } else if (editorialNote.isToRemove()) {
@@ -473,7 +473,7 @@ public class PropositionService implements Serializable {
         if (examplesAccepted && CollectionUtils.isNotEmpty(proposition.getExamples())) {
             for (NotePropBean example : proposition.getExamples()) {
                 if (example.isToAdd()) {
-                    addNewNote(example, "example", propositionSelected.getIdConcept());
+                    addNewNote(example, "example");
                 } else if (example.isToUpdate()) {
                     updateNote(example, "example");
                 } else if (example.isToRemove()) {
@@ -485,7 +485,7 @@ public class PropositionService implements Serializable {
         if (scopeAccepted && CollectionUtils.isNotEmpty(proposition.getScopeNotes())) {
             for (NotePropBean scopeNote : proposition.getScopeNotes()) {
                 if (scopeNote.isToAdd()) {
-                    addNewNote(scopeNote, "scopeNote", propositionSelected.getIdConcept());
+                    addNewNote(scopeNote, "scopeNote");
                 } else if (scopeNote.isToUpdate()) {
                     updateNote(scopeNote, "scopeNote");
                 } else if (scopeNote.isToRemove()) {
@@ -497,7 +497,7 @@ public class PropositionService implements Serializable {
         if (historyAccepted && CollectionUtils.isNotEmpty(proposition.getHistoryNotes())) {
             for (NotePropBean history : proposition.getHistoryNotes()) {
                 if (history.isToAdd()) {
-                    addNewNote(history, "historyNote", propositionSelected.getIdConcept());
+                    addNewNote(history, "historyNote");
                 } else if (history.isToUpdate()) {
                     updateNote(history, "historyNote");
                 } else if (history.isToRemove()) {
@@ -576,7 +576,7 @@ public class PropositionService implements Serializable {
         }
     }
 
-    private void addNewNote(NotePropBean notePropBean, String typeNote, String conceptId) {
+    private void addNewNote(NotePropBean notePropBean, String typeNote) {
         if (!new NoteHelper().addNote(
                 connect.getPoolConnexion(),
                 conceptView.getNodeConcept().getConcept().getIdConcept(),
