@@ -53,7 +53,7 @@
                 <p:commandButton rendered="#{!editConcept.duplicate}" id="renameConceptSubmit" 
                                  styleClass="ui-button-success" ajax="true" process="@form" 
                                  icon="pi pi-check" value="#{langueBean.getMsg('btnValidate')}"
-                                 update="messageIndex containerIndex:idRenameConcept" 
+                                 update="messageIndex containerIndex:idRenameConcept containerIndex:rightTab:textPrefLabel" 
                                  action="#{editConcept.updateLabel(selectedTheso.currentIdTheso, 
                                                    selectedTheso.currentLang, currentUser.nodeUser.idUser)}"/>
             </div>

@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12">
             <p:commandLink value="#{langueBean.getMsg('candidat.return')}" 
-                           update="tabViewCandidat" style="color: #F47B2A" process="@this"
+                           update="tabViewCandidateForm:tabViewCandidat" style="color: #F47B2A" process="@this"
                            action= "#{candidatBean.getAcceptedCandidatByThesoAndLangue()}"
                            actionListener="#{candidatBean.setIsNewCandidatActivate(true)}" />
         </div>
@@ -52,7 +52,7 @@
                     <!-- collection -->
                     <div class="row" style="margin-top: 10px">
                         <div class="col-12">
-                            <p:dataList value="#{candidatBean.candidatSelected.collections}" var="collection" type="ordered"
+                            <p:dataList value="#{candidatBean.candidatSelected.collections}" var="collection" type="ordered" lazy="false"
                                         emptyMessage="Aucune collection n'est disponible ...">
                                 <f:facet name="header">
                                     #{langueBean.getMsg('candidat.domaine')}
@@ -65,7 +65,7 @@
                     <!-- pour les relations BT -->    
                     <div class="row" style="margin-top: 10px">
                         <div class="col-12">
-                            <p:dataList value="#{candidatBean.candidatSelected.termesGenerique}" var="term" type="ordered"
+                            <p:dataList value="#{candidatBean.candidatSelected.termesGenerique}" var="term" type="ordered" lazy="false"
                                         emptyMessage="Aucun terme génerique n'est disponible ...">
                                 <f:facet name="header">
                                     #{langueBean.getMsg('candidat.generic_term')}
@@ -78,7 +78,7 @@
                     <!-- pour les relations RT -->       
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-12">
-                            <p:dataList value="#{candidatBean.candidatSelected.termesAssocies}" var="term" type="ordered"
+                            <p:dataList value="#{candidatBean.candidatSelected.termesAssocies}" var="term" type="ordered" lazy="false"
                                         emptyMessage="Aucun terme associés n'est disponible ...">
                                 <f:facet name="header">
                                     #{langueBean.getMsg('candidat.associeted_terms')}
@@ -91,7 +91,7 @@
                     <!-- pour les notes -->       
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-12">
-                            <p:dataList value="#{candidatBean.candidatSelected.nodeNotes}" var="note" type="ordered"
+                            <p:dataList value="#{candidatBean.candidatSelected.nodeNotes}" var="note" type="ordered" lazy="false"
                                         emptyMessage="Aucune note n'est disponible ...">
                                 <f:facet name="header">Notes</f:facet>
                                 <h:outputText value="#{note.lexicalvalue}" style="width: 100%; resize: none; font-size: 13px;" escape="false" />
@@ -103,7 +103,7 @@
                     <h:panelGroup rendered="#{candidatBean.candidatSelected.traductions.size() == 0}">
                         <div class="row" style="margin-top: 10px;">
                             <div class="col-12">
-                                <p:dataList value="#{candidatBean.candidatSelected.traductions}" var="traduction" type="ordered"
+                                <p:dataList value="#{candidatBean.candidatSelected.traductions}" var="traduction" type="ordered" lazy="false"
                                             emptyMessage="Aucune traduction n'est disponible ...">
                                     <f:facet name="header">Traductions</f:facet>
                                     {#{traduction.langue}} #{traduction.traduction}

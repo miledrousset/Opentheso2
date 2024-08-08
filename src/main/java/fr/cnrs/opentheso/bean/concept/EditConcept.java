@@ -594,7 +594,7 @@ public class EditConcept implements Serializable {
         ///////////////        
         conceptView.getConceptForTree(idTheso, idConcept, conceptView.getSelectedLang());
         
-        
+     /*   
         if (tree.getSelectedNode() != null) {
             // si le concept en cours n'est pas celui sélectionné dans l'arbre, on se positionne sur le concept en cours dans l'arbre
             if (!((TreeNodeData) tree.getSelectedNode().getData()).getNodeId().equalsIgnoreCase(
@@ -606,16 +606,16 @@ public class EditConcept implements Serializable {
                 pf.ajax().update("containerIndex:formLeftTab:tabTree:tree");
             }
         }         
-        
+        */
         
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "le concept est maintenant obsolète");
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        if (pf.isAjaxRequest()) {
+   /*     if (pf.isAjaxRequest()) {
             pf.ajax().update("messageIndex");
             pf.ajax().update("containerIndex:formLeftTab");
             pf.ajax().update("containerIndex:formRightTab");
-        }
+        }*/
     }
     
     public void approveConcept(String idConcept, String idTheso, int idUser){
@@ -648,7 +648,7 @@ public class EditConcept implements Serializable {
         ///////////////        
         conceptView.getConceptForTree(idTheso, idConcept, conceptView.getSelectedLang());
         
-        if (tree.getSelectedNode() != null) {
+   /*     if (tree.getSelectedNode() != null) {
             // si le concept en cours n'est pas celui sélectionné dans l'arbre, on se positionne sur le concept en cours dans l'arbre
             if (!((TreeNodeData) tree.getSelectedNode().getData()).getNodeId().equalsIgnoreCase(
                     conceptBean.getNodeConcept().getConcept().getIdConcept())) {
@@ -661,7 +661,7 @@ public class EditConcept implements Serializable {
             if (pf.isAjaxRequest()) {
                 pf.ajax().update("containerIndex:formLeftTab:tabTree:tree");
             }
-        }          
+        }          */
         
         
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "le concept n'est plus obsolète maintenant");

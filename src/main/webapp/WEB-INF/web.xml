@@ -27,7 +27,17 @@
          <param-value>true</param-value>
     </context-param>
 
-
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <error-page>
+        <exception-type>jakarta.faces.application.ViewExpiredException</exception-type>
+        <location>/index.xhtml</location>
+    </error-page>        
+    
+    
 
     <!-- Configuration pour JSF -->
     <context-param>

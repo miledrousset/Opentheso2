@@ -4,7 +4,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
+    <f:view>
+        <f:metadata>
+            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
+            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
+            <f:viewAction action="#{selectedTheso.preRenderView}"/>
+        </f:metadata>    
+    </f:view>      
     <h:head>
         <title>Opentheso</title>
 
@@ -20,16 +26,11 @@
     </h:head>
 
     <h:body id="page-top" onload="initMenu()" style="margin:0; padding:0; height:100%;">
-
-        <p:idleMonitor timeout="#{connect.timeout}">
-            <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
-        </p:idleMonitor>
-
-        <f:metadata>
-            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
-            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
-            <f:viewAction action="#{selectedTheso.preRenderView}"/>
-        </f:metadata>
+        <h:form>
+            <p:idleMonitor timeout="#{connect.timeout}">
+                <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
+            </p:idleMonitor>
+        </h:form>            
 
         <p:growl id="messageIndex" globalOnly="true" showDetail="true"/>
 
@@ -57,7 +58,7 @@
                                              value="#{superAdminBean.allProjects}" var="listProject" size="small"
                                              widgetVar="listProject" styleClass="products-table"
                                              resizableColumns="true" scrollHeight="450" reflow="true"
-                                             paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom"
+                                             paginator="true" rows="10" paginatorPosition="bottom"
                                              emptyMessage="Aucun projet disponible..."
                                              stripedRows="true"
                                              style="margin-bottom: -17px; margin-top: -16px;" lazy="false">

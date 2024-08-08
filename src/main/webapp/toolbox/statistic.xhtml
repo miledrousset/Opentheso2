@@ -29,9 +29,11 @@
 
     <h:body id="page-top" onload="initMenu()">
 
-        <p:idleMonitor timeout="#{connect.timeout}">
-            <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
-        </p:idleMonitor>
+        <h:form>
+            <p:idleMonitor timeout="#{connect.timeout}">
+                <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
+            </p:idleMonitor>
+        </h:form>
 
 
 

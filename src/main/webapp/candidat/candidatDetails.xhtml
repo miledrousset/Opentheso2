@@ -20,14 +20,14 @@
             <div class="col-6">
                 <i class="pi pi-arrow-left" style="color: #F47B2A; margin-right: 5px; margin-left: 15px"></i>
                 <p:commandLink value="#{langueBean.getMsg('candidat.return')}"
-                               update="tabViewCandidat" style="color: #F47B2A" ajax="true" process="@this"
+                               update="tabViewCandidateForm:tabViewCandidat" style="color: #F47B2A" ajax="true" process="@this"
                                action= "#{candidatBean.getAllCandidatsByThesoAndLangue()}"
                                actionListener="#{candidatBean.setIsListCandidatsActivate(true)}" />
             </div>
             <div class="col-6" style="text-align: right">
                 <p:commandButton value="#{candidatBean.getCreatedByBtnTitle()}"
                                  rendered="#{!candidatBean.isNewCandidatActivate()}"
-                                 icon="fas fa-sync" ajax="true" update="tabViewCandidat"
+                                 icon="fas fa-sync" ajax="true" update="tabViewCandidateForm:tabViewCandidat"
                                  styleClass="ui-button-success"
                                  actionListener="#{candidatBean.showCandidatSelected(candidatBean.candidatSelected)}"/>
             </div>
@@ -42,7 +42,7 @@
                         <p:inputText id="inputTextCandidate" readonly="#{!candidatBean.isMyCandidate() }"
                                      value="#{candidatBean.candidatSelected.nomPref}">
                             <p:ajax event="change" listener="#{candidatBean.changeStateOfLabel()}"
-                                    update="tabViewCandidat:containerIndexCandidat:vote"/>
+                                    update="tabViewCandidateForm:tabViewCandidat:containerIndexCandidat:vote"/>
                         </p:inputText> 
                         <p:tooltip for="inputTextCandidate" value="#{langueBean.getMsg('candidat.term.no_edit')}"
                                    showDelay="1000" position="top"/>
@@ -96,12 +96,12 @@
                                          icon="fas fa-undo-alt" styleClass="ui-button-secondary button"
                                          actionListener="#{candidatBean.setIsListCandidatsActivate(true)}"
                                          action="#{candidatBean.getAllCandidatsByThesoAndLangue()}"
-                                         update="tabViewCandidat"/>
+                                         update="tabViewCandidateForm:tabViewCandidat"/>
 
                         <p:commandButton value="#{langueBean.getMsg('candidat.create')}"
                                          icon="pi pi-check"
                                          styleClass="ui-button-success" action="#{candidatBean.saveConcept()}"
-                                         update="tabViewCandidat " />
+                                         update="tabViewCandidateForm:tabViewCandidat " />
 
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                                 <div class="card mb-4 py-3 border-left-success">
                                     <div class="list-group" style="margin-top: -10px; margin-bottom: -10px; margin-left: 12px; margin-right: 12px">
                                         <p:dataView id="collectionList" var="collection"
-                                                    value="#{candidatBean.candidatSelected.collections}"
+                                                    value="#{candidatBean.candidatSelected.collections}" lazy="false"
                                                     emptyMessage="#{langueBean.getMsg('rightbody.concept.no_value')}">
                                             <p:dataViewListItem>
                                                 <div class="product-list-item" style="display: flex; justify-content: space-between;">
@@ -167,7 +167,7 @@
 
                                 <div class="card mb-4 py-3 border-left-success">
                                     <div class="list-group" style="margin-top: -10px; margin-bottom: -10px; margin-left: 12px; margin-right: 12px">
-                                        <p:dataView var="synonyme" value="#{candidatBean.candidatSelected.employePourList}"
+                                        <p:dataView var="synonyme" value="#{candidatBean.candidatSelected.employePourList}" lazy="false"
                                                     emptyMessage="#{langueBean.getMsg('rightbody.concept.no_value')}">
                                             <p:dataViewListItem>
                                                 <div class="product-list-item" style="display: flex; justify-content: space-between;">
@@ -176,7 +176,7 @@
                                                     </div>
                                                     <div class="product-list-detail">
                                                         <p:commandLink title="#{langueBean.getMsg('candidat.delete_synonym')} : #{synonyme}"
-                                                                       process="@this" ajax="true" update="tabViewCandidat:containerIndexCandidat:candidatSynonym"
+                                                                       process="@this" ajax="true" update="tabViewCandidateForm:tabViewCandidat:containerIndexCandidat:candidatSynonym"
                                                                        action="#{candidatBean.removeSynonyme(synonyme)}">
                                                             <h:outputText styleClass="ui-icon pi pi-times" style="margin:0 auto;"/>
                                                         </p:commandLink>
@@ -212,7 +212,7 @@
 
                                 <div class="card mb-4 py-3 border-left-success">
                                     <div class="list-group" style="margin-top: -10px; margin-bottom: -10px; margin-left: 12px; margin-right: 12px">
-                                        <p:dataView var="terme" value="#{candidatBean.candidatSelected.termesGenerique}"
+                                        <p:dataView var="terme" value="#{candidatBean.candidatSelected.termesGenerique}" lazy="false"
                                                     emptyMessage="#{langueBean.getMsg('rightbody.concept.no_value')}">
                                             <p:dataViewListItem>
                                                 <div class="product-list-item" style="display: flex; justify-content: space-between;">
@@ -253,7 +253,7 @@
 
                                 <div class="card mb-4 py-3 border-left-success">
                                     <div class="list-group" style="margin-top: -10px; margin-bottom: -10px; margin-left: 12px; margin-right: 12px">
-                                        <p:dataView var="terme" value="#{candidatBean.candidatSelected.termesAssocies}"
+                                        <p:dataView var="terme" value="#{candidatBean.candidatSelected.termesAssocies}" lazy="false"
                                                     emptyMessage="#{langueBean.getMsg('rightbody.concept.no_value')}">
                                             <p:dataViewListItem>
                                                 <div class="product-list-item" style="display: flex; justify-content: space-between;">

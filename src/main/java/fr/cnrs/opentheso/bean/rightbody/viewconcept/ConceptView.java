@@ -475,9 +475,6 @@ public class ConceptView implements Serializable {
             setNotesForAllLang();//getNotesWithAllLanguages();
         } else 
             setNotesCurrentLang();    
-        
-        PrimeFaces.current().ajax().update("messageIndex");
-        PrimeFaces.current().ajax().update("containerIndex:formRightTab");
     }
     
     public boolean isHaveAlignment(){

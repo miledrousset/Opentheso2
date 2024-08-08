@@ -341,12 +341,12 @@ public class AddConcept implements Serializable {
         update();
     }
     private void update(){
-        if (PrimeFaces.current().isAjaxRequest()) {
+ /*       if (PrimeFaces.current().isAjaxRequest()) {
             PrimeFaces.current().ajax().update("messageIndex");            
-            PrimeFaces.current().ajax().update("containerIndex:addNTMessage");
+    //        PrimeFaces.current().ajax().update("containerIndex:addNTMessage");
             PrimeFaces.current().ajax().update("containerIndex:idAddNT");
             PrimeFaces.current().ajax().update("containerIndex:addNTForm");            
-        }
+        }*/
     }
 
     public void reset() {

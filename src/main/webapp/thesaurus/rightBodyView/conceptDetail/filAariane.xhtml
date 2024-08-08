@@ -5,195 +5,199 @@
              xmlns:leaf="http://java.sun.com/jsf/composite/jsf2leaf">
 
     <div style="width: 100%; display: flex; background-color: #ecf8f1; padding-top: 3px; padding-bottom: 3px;">
-        <h:panelGroup id="idConceptViewActions" 
-                      rendered="#{currentUser.nodeUser != null
-                                  and (currentUser.hasRoleAsManager)}" >
-            
-            <p:menuButton icon="pi pi-align-justify" >
-                
-                <p:menuitem id="newConcept" actionListener="#{addConcept.reset()}" 
-                            oncomplete="PF('addNT').show();" icon="fas fa-plus"
-                            update="containerIndex:idAddNT" 
-                            value="#{langueBean.getMsg('rightbody.concept.new_concept')}"/>
 
-                <!-- gestion de type de concept -->
-                <p:menuitem rendered="#{roleOnTheso.nodePreference.useCustomRelation and conceptView.nodeConcept.nodeCustomRelations.size() == 0}"
-                            value="#{langueBean.getMsg('concept.editConceptType')}" 
-                            action="#{editConcept.initForConceptType()}" update="containerIndex:idEditConceptType" icon="fas fa-edit"
-                            oncomplete="PF('editConceptType').show();"  />                
-                <p:menuitem rendered="#{roleOnTheso.nodePreference.useCustomRelation}"
-                            value="#{langueBean.getMsg('concept.manageConceptType')}" 
-                            action="#{editConcept.initForConceptType()}" update="containerIndex:idManageConceptType containerIndex:manageConceptTypeForm" icon="fas fa-cog"
-                            oncomplete="PF('manageConceptType').show();"  />        
-                
-                
-                
-                <p:menuitem id="newFacet" oncomplete="PF('addFacet').show();" 
-                            actionListener="#{editFacet.initNewFacet()}" 
-                            update="containerIndex:idAddFacet" icon="fas fa-magnet"
-                            value="#{langueBean.getMsg('rightbody.concept.new_facet')}" />
+        <h:form id="idConceptViewActions">
+            <h:panelGroup  
+                rendered="#{currentUser.nodeUser != null
+                            and (currentUser.hasRoleAsManager)}" >
 
-                <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
+                <p:menuButton icon="pi pi-align-justify" >
 
-                <p:menuitem  value="#{langueBean.getMsg('rightbody.concept.cut_move')}"
-                             action="#{dragAndDrop.setDragNode(tree.selectedNode)}"
-                             actionListener="#{dragAndDrop.onStartCut(conceptView.nodeConcept)}"
-                             ajax="true" icon="fas fa-cut" update="containerIndex:rightTab:idConceptViewActions messageIndex" />
+                    <p:menuitem id="newConcept" actionListener="#{addConcept.reset()}" 
+                                oncomplete="PF('addNT').show();" icon="fas fa-plus"
+                                update="containerIndex:idAddNT" 
+                                ajax="true" process="@this"
+                                value="#{langueBean.getMsg('rightbody.concept.new_concept')}"/>
 
-                <p:menuitem rendered="#{(dragAndDrop.isCopyOn) and
-                                        (dragAndDrop.cuttedConcept.concept.idConcept != conceptView.nodeConcept.concept.idConcept)}"
-                            value="#{langueBean.getMsg('rightbody.concept.paste')} #{cutAndPaste.nodeConceptDrag.term.lexical_value} #{langueBean.getMsg('rightbody.concept.as_specific')}"
-                            actionListener="#{dragAndDrop.setDropNode(tree.selectedNode)}"
-                            action="#{dragAndDrop.paste(conceptView.nodeConcept)}" icon="fas fa-paste"
-                            ajax="true" update="containerIndex:rightTab:idConceptViewActions containerIndex:formLeftTab:idDragAndDrop messageIndex" />
+                    <!-- gestion de type de concept -->
+                    <p:menuitem rendered="#{roleOnTheso.nodePreference.useCustomRelation and conceptView.nodeConcept.nodeCustomRelations.size() == 0}"
+                                value="#{langueBean.getMsg('concept.editConceptType')}" 
+                                action="#{editConcept.initForConceptType()}" update="containerIndex:idEditConceptType" icon="fas fa-edit"
+                                oncomplete="PF('editConceptType').show();"  />                
+                    <p:menuitem rendered="#{roleOnTheso.nodePreference.useCustomRelation}"
+                                value="#{langueBean.getMsg('concept.manageConceptType')}" 
+                                action="#{editConcept.initForConceptType()}" update="containerIndex:idManageConceptType containerIndex:manageConceptTypeForm" icon="fas fa-cog"
+                                oncomplete="PF('manageConceptType').show();"  />        
 
-                <p:menuitem rendered="#{(dragAndDrop.isCopyOn) and (!dragAndDrop.cuttedConcept.concept.topConcept)}"
-                            value="#{langueBean.getMsg('rightbody.concept.paste')} #{cutAndPaste.nodeConceptDrag.term.lexical_value} #{langueBean.getMsg('rightbody.concept.at_the_root')}"
-                            actionListener="#{dragAndDrop.setIsDropToRoot(true)}"
-                            action="#{dragAndDrop.paste(null)}" ajax="true"
-                            update="containerIndex:rightTab:idConceptViewActions messageIndex" />
 
-                <p:menuitem value="#{langueBean.getMsg('rightbody.concept.delete_concept')}"
-                            actionListener="#{editConcept.infosDelete()}" icon="far fa-trash-alt"
-                            action="#{editConcept.reset('')}" update="containerIndex:idDeleteConcept"
-                            oncomplete="PF('deleteConcept').show();"  />
 
-                <p:menuitem rendered="#{!conceptView.nodeConcept.concept.deprecated}"
-                            value="#{langueBean.getMsg('rightbody.concept.deprecate_concept')}"
-                            icon="fa fa-times-circle"
-                            update="containerIndex:idDeprecateConcept" action="#{editConcept.reset('')}"
-                            oncomplete="PF('deprecateConcept').show();"  />                    
+                    <p:menuitem id="newFacet" oncomplete="PF('addFacet').show();" 
+                                actionListener="#{editFacet.initNewFacet()}" 
+                                update="containerIndex:idAddFacet" icon="fas fa-magnet"
+                                value="#{langueBean.getMsg('rightbody.concept.new_facet')}" />
 
-                <p:menuitem rendered="#{conceptView.nodeConcept.concept.deprecated}"
-                            icon="fa fa-check-circle"
-                            value="#{langueBean.getMsg('rightbody.concept.approve_concept')}"
-                            update="idApproveConcept" action="#{editConcept.reset('')}"
-                            oncomplete="PF('approveConcept').show();"  />
+                    <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
 
-                <p:menuitem disabled="false" rendered="#{!copyAndPasteBetweenTheso.isCopyOn}"
-                            value="#{langueBean.getMsg('rightbody.concept.copy_to_another_thesaurus')}"
-                            actionListener="#{copyAndPasteBetweenTheso.onStartCopy()}"
-                            icon="fas fa-regular fa-copy" update="containerIndex:rightTab:idConceptViewActions messageIndex" />
+                    <p:menuitem  value="#{langueBean.getMsg('rightbody.concept.cut_move')}"
+                                 action="#{dragAndDrop.setDragNode(tree.selectedNode)}"
+                                 actionListener="#{dragAndDrop.onStartCut(conceptView.nodeConcept)}"
+                                 ajax="true" icon="fas fa-cut" update="containerIndex:rightTab:idConceptViewActions messageIndex" />
 
-                <p:menuitem rendered="#{(copyAndPasteBetweenTheso.isCopyOn) and (copyAndPasteBetweenTheso.idThesoOrigin != selectedTheso.currentIdTheso) }"
-                            value="#{langueBean.getMsg('rightbody.concept.paste')} (#{copyAndPasteBetweenTheso.nodeConceptDrag.term.lexical_value}) #{langueBean.getMsg('rightbody.concept.here')} !!" 
-                            actionListener="#{copyAndPasteBetweenTheso.validatePaste()}" icon="fas fa-paste"
-                            action="#{copyAndPasteBetweenTheso.setIsDropToRoot(false)}"
-                            update="containerIndex:rightTab:idCopyAndPasteBetweenTheso containerIndex"
-                            oncomplete="PF('copyAndPasteBetweenTheso').show();" />
+                    <p:menuitem rendered="#{(dragAndDrop.isCopyOn) and
+                                            (dragAndDrop.cuttedConcept.concept.idConcept != conceptView.nodeConcept.concept.idConcept)}"
+                                value="#{langueBean.getMsg('rightbody.concept.paste')} #{cutAndPaste.nodeConceptDrag.term.lexical_value} #{langueBean.getMsg('rightbody.concept.as_specific')}"
+                                actionListener="#{dragAndDrop.setDropNode(tree.selectedNode)}"
+                                action="#{dragAndDrop.paste(conceptView.nodeConcept)}" icon="fas fa-paste"
+                                ajax="true" update="containerIndex:rightTab:idConceptViewActions containerIndex:formLeftTab:idDragAndDrop messageIndex" />
 
-                <p:menuitem  rendered="#{copyAndPasteBetweenTheso.isCopyOn}"
-                             value="#{langueBean.getMsg('rightbody.concept.cancel_copy')}"
-                             action="#{copyAndPasteBetweenTheso.reset()}" icon="fas fa-ban"
-                             update="containerIndex:rightTab:idConceptViewActions messageIndex" />       
+                    <p:menuitem rendered="#{(dragAndDrop.isCopyOn) and (!dragAndDrop.cuttedConcept.concept.topConcept)}"
+                                value="#{langueBean.getMsg('rightbody.concept.paste')} #{cutAndPaste.nodeConceptDrag.term.lexical_value} #{langueBean.getMsg('rightbody.concept.at_the_root')}"
+                                actionListener="#{dragAndDrop.setIsDropToRoot(true)}"
+                                action="#{dragAndDrop.paste(null)}" ajax="true"
+                                update="containerIndex:rightTab:idConceptViewActions messageIndex" />
 
-                
-                
-                
-                
-                
-                
-                <p:separator rendered="#{(roleOnTheso.isAdminOnThisTheso() or roleOnTheso.isSuperAdmin())}" style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
-                <p:menuitem  rendered="#{(roleOnTheso.isAdminOnThisTheso() or roleOnTheso.isSuperAdmin())}"
-                             value="#{langueBean.getMsg('concept.moveToAnotherThesoTooltip')}"
-                             action="#{moveConcept.initForConcept(conceptView.nodeConcept.concept.idConcept, selectedTheso.currentIdTheso)}"
-                             icon="fas fa-truck-moving"
-                             oncomplete="PF('moveToAnotherTheso').show();"                             
-                             update="containerIndex:idMoveToAnotherTheso containerIndex:moveToAnotherThesoForm"/>                
+                    <p:menuitem value="#{langueBean.getMsg('rightbody.concept.delete_concept')}"
+                                actionListener="#{editConcept.infosDelete()}" icon="far fa-trash-alt"
+                                action="#{editConcept.reset('')}" update="containerIndex:idDeleteConcept"
+                                oncomplete="PF('deleteConcept').show();"  />
 
-                
-                
-                
-                
-                
-                
-                <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
+                    <p:menuitem rendered="#{!conceptView.nodeConcept.concept.deprecated}"
+                                value="#{langueBean.getMsg('rightbody.concept.deprecate_concept')}"
+                                icon="fa fa-times-circle"
+                                update="containerIndex:idDeprecateConcept" action="#{editConcept.reset('')}"
+                                oncomplete="PF('deprecateConcept').show();"  />                    
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_ark')}" 
-                            disabled="false"                                      
-                            actionListener="#{editConcept.infosArk()}"
-                            update="idGenerateArk"
-                            action="#{editConcept.reset('')}"
-                            oncomplete="PF('generateArk').show();"
-                            style="font-size: 12px;" />
+                    <p:menuitem rendered="#{conceptView.nodeConcept.concept.deprecated}"
+                                icon="fa fa-check-circle"
+                                value="#{langueBean.getMsg('rightbody.concept.approve_concept')}"
+                                update="containerIndex:rightTab:idApproveConcept" action="#{editConcept.reset('')}"
+                                oncomplete="PF('approveConcept').show();"  />
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk or roleOnTheso.nodePreference.useArkLocal) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_missing_ark')}"
-                            disabled="false"
-                            action="#{editConcept.generateArkForConceptWithoutArk()}"
-                            update="messageIndex"
-                            style="font-size: 12px;" />
+                    <p:menuitem disabled="false" rendered="#{!copyAndPasteBetweenTheso.isCopyOn}"
+                                value="#{langueBean.getMsg('rightbody.concept.copy_to_another_thesaurus')}"
+                                actionListener="#{copyAndPasteBetweenTheso.onStartCopy()}"
+                                icon="fas fa-regular fa-copy" update="containerIndex:rightTab:idConceptViewActions messageIndex" />
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk or roleOnTheso.nodePreference.useArkLocal) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_ark_for_branch')}"
-                            disabled="false" 
-                            oncomplete="PF('generateArkForThisBranch').show();"
-                            actionListener="#{editConcept.clear()}"
-                            update="idGenerateArkForThisBranch generateArkForThisBranchForm" />
+                    <p:menuitem rendered="#{(copyAndPasteBetweenTheso.isCopyOn) and (copyAndPasteBetweenTheso.idThesoOrigin != selectedTheso.currentIdTheso) }"
+                                value="#{langueBean.getMsg('rightbody.concept.paste')} (#{copyAndPasteBetweenTheso.nodeConceptDrag.term.lexical_value}) #{langueBean.getMsg('rightbody.concept.here')} !!" 
+                                actionListener="#{copyAndPasteBetweenTheso.validatePaste()}" icon="fas fa-paste"
+                                action="#{copyAndPasteBetweenTheso.setIsDropToRoot(false)}"
+                                update="containerIndex:rightTab:idCopyAndPasteBetweenTheso containerIndex"
+                                oncomplete="PF('copyAndPasteBetweenTheso').show();" />
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk or roleOnTheso.nodePreference.useArkLocal) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_all_ark')}"
-                            oncomplete="PF('generateAllArk').show();"
-                            disabled="false"
-                            actionListener="#{editConcept.clear()}"
-                            update="idGenerateAllArk generateAllArkForm"/>
-                
-                
-                <!-- gestion de Handle -->
-                
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_handle')}" 
-                            disabled="false"                                      
-                            actionListener="#{editConcept.infosHandle()}"
-                            update="idGenerateHandle"
-                            action="#{editConcept.reset('')}"
-                            oncomplete="PF('generateHandle').show();"
-                            style="font-size: 12px;" />
+                    <p:menuitem  rendered="#{copyAndPasteBetweenTheso.isCopyOn}"
+                                 value="#{langueBean.getMsg('rightbody.concept.cancel_copy')}"
+                                 action="#{copyAndPasteBetweenTheso.reset()}" icon="fas fa-ban"
+                                 update="containerIndex:rightTab:idConceptViewActions messageIndex" />       
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.delete_handle')}" 
-                            disabled="false"                                      
-                            actionListener="#{editConcept.infosDeleteHandle()}"
-                            update="idDeleteHandle"
-                            action="#{editConcept.reset('')}"
-                            oncomplete="PF('deleteHandle').show();"
-                            style="font-size: 12px;"/>                
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_missing_handle')}" 
-                            disabled="false" action="#{editConcept.generateHandleForConceptWithoutHandle()}"
-                            update="messageIndex" />
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_handle_for_branch')}"
-                            disabled="false" action="#{editConcept.generateHandleForThisBranch()}"
-                            update="messageIndex" />
 
-                <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
-                            value="#{langueBean.getMsg('rightbody.concept.generate_all_handle')}"
-                            disabled="false" action="#{editConcept.generateAllHandle()}"
-                            update="messageIndex" />
-                
-                <!-- Fin de gestion de Handle -->                
-                
 
-                <p:menuitem rendered="#{currentUser.nodeUser != null and (currentUser.hasRoleAsManager)}" 
-                            value="#{langueBean.getMsg('rightbody.concept.import_tabulated_list')}"
-                            actionListener="#{editConcept.infosDelete()}" icon="fas fa-file-download"
-                            update="containerIndex:rightTab:idListImportCsv containerIndex:rightTab:listImportCsvForm" action="#{importFileBean.init()}"
-                            oncomplete="PF('listImportCsv').show();"/>
-                
-                <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
-                <p:menuitem value="#{langueBean.getMsg('actions.repairLoopedRelationships')}"
-                            title="#{langueBean.getMsg('actions.repairLoopedRelationshipsToolTip')}"
-                            action="#{restoreTheso.deleteLoopRelations(selectedTheso.currentIdTheso, conceptView.nodeConcept.concept.idConcept)}" icon="fas fa-toolbox"
-                            update="messageIndex containerIndex:rightTab:idConceptViewActions"/>                
 
-            </p:menuButton>
-            <p:tooltip for="newConcept" value="#{langueBean.getMsg('rightbody.concept.tooltip_new_concept')} #{conceptView.nodeConcept.term.lexical_value}" showDelay="1000" />                
-            <p:tooltip for="newFacet" value="#{langueBean.getMsg('rightbody.concept.tooltip_new_facet')} #{conceptView.nodeConcept.term.lexical_value}" showDelay="1000" />
-        </h:panelGroup>
+
+                    <p:separator rendered="#{(roleOnTheso.isAdminOnThisTheso() or roleOnTheso.isSuperAdmin())}" style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
+                    <p:menuitem  rendered="#{(roleOnTheso.isAdminOnThisTheso() or roleOnTheso.isSuperAdmin())}"
+                                 value="#{langueBean.getMsg('concept.moveToAnotherThesoTooltip')}"
+                                 action="#{moveConcept.initForConcept(conceptView.nodeConcept.concept.idConcept, selectedTheso.currentIdTheso)}"
+                                 icon="fas fa-truck-moving"
+                                 oncomplete="PF('moveToAnotherTheso').show();"                             
+                                 update="containerIndex:idMoveToAnotherTheso containerIndex:moveToAnotherThesoForm"/>                
+
+
+
+
+
+
+
+                    <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_ark')}" 
+                                disabled="false"                                      
+                                actionListener="#{editConcept.infosArk()}"
+                                update="idGenerateArk"
+                                action="#{editConcept.reset('')}"
+                                oncomplete="PF('generateArk').show();"
+                                style="font-size: 12px;" />
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk or roleOnTheso.nodePreference.useArkLocal) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_missing_ark')}"
+                                disabled="false"
+                                action="#{editConcept.generateArkForConceptWithoutArk()}"
+                                update="messageIndex"
+                                style="font-size: 12px;" />
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk or roleOnTheso.nodePreference.useArkLocal) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_ark_for_branch')}"
+                                disabled="false" 
+                                oncomplete="PF('generateArkForThisBranch').show();"
+                                actionListener="#{editConcept.clear()}"
+                                update="idGenerateArkForThisBranch generateArkForThisBranchForm" />
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useArk or roleOnTheso.nodePreference.useArkLocal) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_all_ark')}"
+                                oncomplete="PF('generateAllArk').show();"
+                                disabled="false"
+                                actionListener="#{editConcept.clear()}"
+                                update="idGenerateAllArk generateAllArkForm"/>
+
+
+                    <!-- gestion de Handle -->
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_handle')}" 
+                                disabled="false"                                      
+                                actionListener="#{editConcept.infosHandle()}"
+                                update="containerIndex:rightTab:idGenerateHandle"
+                                action="#{editConcept.reset('')}"
+                                oncomplete="PF('generateHandle').show();"
+                                style="font-size: 12px;" />
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.delete_handle')}" 
+                                disabled="false"                                      
+                                actionListener="#{editConcept.infosDeleteHandle()}"
+                                update="containerIndex:rightTab:idDeleteHandle"
+                                action="#{editConcept.reset('')}"
+                                oncomplete="PF('deleteHandle').show();"
+                                style="font-size: 12px;"/>                
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_missing_handle')}" 
+                                disabled="false" action="#{editConcept.generateHandleForConceptWithoutHandle()}"
+                                update="messageIndex" />
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_handle_for_branch')}"
+                                disabled="false" action="#{editConcept.generateHandleForThisBranch()}"
+                                update="messageIndex" />
+
+                    <p:menuitem rendered="#{(roleOnTheso.nodePreference.useHandle) and (currentUser.nodeUser.isSuperAdmin() or roleOnTheso.isAdminOnThisTheso())}"
+                                value="#{langueBean.getMsg('rightbody.concept.generate_all_handle')}"
+                                disabled="false" action="#{editConcept.generateAllHandle()}"
+                                update="messageIndex" />
+
+                    <!-- Fin de gestion de Handle -->                
+
+
+                    <p:menuitem rendered="#{currentUser.nodeUser != null and (currentUser.hasRoleAsManager)}" 
+                                value="#{langueBean.getMsg('rightbody.concept.import_tabulated_list')}"
+                                actionListener="#{editConcept.infosDelete()}" icon="fas fa-file-download"
+                                update="containerIndex:rightTab:idListImportCsv containerIndex:rightTab:listImportCsvForm" action="#{importFileBean.init()}"
+                                oncomplete="PF('listImportCsv').show();"/>
+
+                    <p:separator style="border-bottom: 2px solid #d8d8dc; margin-bottom: 5px;"/>
+                    <p:menuitem value="#{langueBean.getMsg('actions.repairLoopedRelationships')}"
+                                title="#{langueBean.getMsg('actions.repairLoopedRelationshipsToolTip')}"
+                                action="#{restoreTheso.deleteLoopRelations(selectedTheso.currentIdTheso, conceptView.nodeConcept.concept.idConcept)}" icon="fas fa-toolbox"
+                                update="messageIndex containerIndex:rightTab:idConceptViewActions"/>                
+
+                </p:menuButton>
+                <p:tooltip for="newConcept" value="#{langueBean.getMsg('rightbody.concept.tooltip_new_concept')} #{conceptView.nodeConcept.term.lexical_value}" showDelay="1000" />                
+                <p:tooltip for="newFacet" value="#{langueBean.getMsg('rightbody.concept.tooltip_new_facet')} #{conceptView.nodeConcept.term.lexical_value}" showDelay="1000" />
+            </h:panelGroup>
+        </h:form>             
 
         <h:form rendered="#{roleOnTheso.nodePreference.breadcrumb}" style="padding-left: 5px;">
             <ui:repeat var="path" value="#{conceptView.pathLabel2}" varStatus="status">
@@ -208,24 +212,24 @@
                     <p:commandLink rendered="#{subPath.isStartOfPath}" style="color:#164A78; background: none; border: none; box-shadow: none; font-size: 13px"
                                    value=" #{subPath.title}" actionListener="#{conceptView.getConcept(selectedTheso.selectedIdTheso,
                                              subPath.idConcept, selectedTheso.currentLang)}" update="containerIndex" process="@form" ajax="true" /> 
-                    
 
-                        <h:panelGroup rendered="#{!substatus.last}" >
-                            <p:commandLink rendered="#{!subPath.isStartOfPath}" style="color:#164A78; background: none; border: none; box-shadow: none; font-size: 13px"
-                                           value="#{subPath.title}" action="#{conceptView.getConcept(selectedTheso.selectedIdTheso, subPath.idConcept, selectedTheso.currentLang)}"
-                                           update="containerIndex" process="@form" ajax="true"/>                          
-                            <h:outputText rendered="#{!substatus.last}" value=" > " style="font-size: 13px; font-weight: bold"/>                        
-                        </h:panelGroup>
 
-                        <h:panelGroup rendered="#{substatus.last and !subPath.isStartOfPath}" >
-                            <h:outputText rendered="#{conceptView.nodeConcept.term.lexical_value != ''}" 
-                                          value=" #{conceptView.nodeConcept.term.lexical_value}" style="font-size: 13px;"/>
-                            <h:outputText rendered="#{conceptView.nodeConcept.term.lexical_value == ''}" 
-                                          value=" (#{conceptView.nodeConcept.concept.idConcept})" style="font-size: 13px;"/>                        
-                        </h:panelGroup>                     
-                    
-                    
-                   
+                    <h:panelGroup rendered="#{!substatus.last}" >
+                        <p:commandLink rendered="#{!subPath.isStartOfPath}" style="color:#164A78; background: none; border: none; box-shadow: none; font-size: 13px"
+                                       value="#{subPath.title}" action="#{conceptView.getConcept(selectedTheso.selectedIdTheso, subPath.idConcept, selectedTheso.currentLang)}"
+                                       update="containerIndex" process="@form" ajax="true"/>                          
+                        <h:outputText rendered="#{!substatus.last}" value=" > " style="font-size: 13px; font-weight: bold"/>                        
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{substatus.last and !subPath.isStartOfPath}" >
+                        <h:outputText rendered="#{conceptView.nodeConcept.term.lexical_value != ''}" 
+                                      value=" #{conceptView.nodeConcept.term.lexical_value}" style="font-size: 13px;"/>
+                        <h:outputText rendered="#{conceptView.nodeConcept.term.lexical_value == ''}" 
+                                      value=" (#{conceptView.nodeConcept.concept.idConcept})" style="font-size: 13px;"/>                        
+                    </h:panelGroup>                     
+
+
+
                 </ui:repeat>                
             </ui:repeat>
         </h:form>
@@ -236,7 +240,7 @@
     <ui:include src="../../../dialog/concept/deleteHandle.xhtml" />
     <ui:include src="../../../dialog/concept/generateAllArk.xhtml" />    
     <ui:include src="../../../dialog/concept/generateArkForThisBranch.xhtml" /> 
-    
+
     <ui:include src="../../../dialog/import/listImportCsv.xhtml" />
 
     <ui:include src="../../../dialog/copyAndPasteBetweenTheso/copyAndPasteBetweenTheso.xhtml" />    

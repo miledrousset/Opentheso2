@@ -7,8 +7,7 @@
     <p:dialog id="idListImportCsv" header="#{langueBean.getMsg('rightbody.concept.import_tabulated_list')}" widgetVar="listImportCsv" 
               width="auto" showEffect="fade" modal="true" resizable="true" position="top" style="margin-top: 30px" >
 
-        <h:form id="listImportCsvForm">  
-
+        <h:panelGroup id="listImportCsvForm">   
             <p:panel style="height: 550px; margin-top: -20px;">
                 <div class="row">
                     <div class="col-6" >
@@ -90,7 +89,7 @@
                     <!-- Choix du fichier -->   
                     <div class="row" style="margin-left: 30px; margin-right: 30px; ">
                         <div class="col-12" > 
-                            <p:fileUpload listener="#{importFileBean.loadFileCsvList}" 
+                            <p:fileUpload id="fileUploadListCsv" listener="#{importFileBean.loadFileCsvList}" 
                                           label="#{langueBean.getMsg('candidat.parcourir')}" 
                                           mode="advanced" auto="true"
                                           style="padding-left: 10px; padding-right: 10px; font-size: 12px;"
@@ -160,7 +159,7 @@
                     
                 </h:panelGroup>
             </p:panel>
-                </h:form>
+        </h:panelGroup>
         <p:spacer height="10px;" />
     </p:dialog> 
 </ui:fragment>

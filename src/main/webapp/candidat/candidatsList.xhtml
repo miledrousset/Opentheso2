@@ -26,18 +26,18 @@
                     <p:commandButton value="#{langueBean.getMsg('candidat.add')}" 
                                      styleClass="ui-button-success" process="@this"
                                      icon="fas fa-plus-circle"
-                                     actionListener="#{candidatBean.initialNewCandidat()}" update="tabViewCandidat tabViewCandidat:panelCandidateList" style="font-size: 13px;"/>
+                                     actionListener="#{candidatBean.initialNewCandidat()}" update="tabViewCandidateForm:tabViewCandidat tabViewCandidateForm:tabViewCandidat:panelCandidateList" style="font-size: 13px;"/>
                 </p:toolbarGroup>
                 <p:toolbarGroup align="right" style="font-size: 13px;">
                     <p:menuButton  value="#{langueBean.getMsg('candidat.import_export_candidates')}" icon="fas fa-download"
                                    style="background: none; border: none; box-shadow: none; margin-left: 10px">
                         <p:menuitem value="#{langueBean.getMsg('candidat.export_in_SKOS')}"                              
                                     disabled="#{candidatBean.candidatList.size() == 0}"
-                                    icon="fas fa-upload" update="tabViewCandidat messageIndex" process="@this"
+                                    icon="fas fa-upload" update="tabViewCandidateForm:tabViewCandidat messageIndex" process="@this"
                                     actionListener="#{candidatBean.setExportViewActivate(true)}" />
 
                         <p:menuitem value="#{langueBean.getMsg('candidat.import_in_SKOS_format')}"
-                                    icon="fas fa-download" update="tabViewCandidat messageIndex" process="@this"
+                                    icon="fas fa-download" update="tabViewCandidateForm:tabViewCandidat messageIndex" process="@this"
                                     actionListener="#{importFileBean.init()}"
                                     action="#{candidatBean.setImportViewActivate(true)}" />
                     </p:menuButton>
@@ -47,12 +47,12 @@
             <div class="row" style="margin-top: 10px; font-size: 13px;">
                 <div class="col-4">
                     <p:selectBooleanCheckbox value="#{candidatBean.myCandidatsSelected1}">
-                        <p:ajax update="tabViewCandidat" listener="#{candidatBean.selectMyCandidats()}" />
+                        <p:ajax update="tabViewCandidateForm:tabViewCandidat" listener="#{candidatBean.selectMyCandidats()}" />
                     </p:selectBooleanCheckbox>
                     <h:outputLabel value="#{langueBean.getMsg('candidat.my_candidats')}" style="color: #000; margin-left: 10px; margin-top: 5px" />
                 </div>
                 <div class="col-2">
-                    <p:commandButton  update="tabViewCandidat" ajax="true" 
+                    <p:commandButton  update="tabViewCandidateForm:tabViewCandidat" ajax="true" 
                                     icon="fas fa-sync" styleClass="rounded-button ui-button-outlined"
                                     style="color: #F47B2A"                                     
                                     actionListener="#{candidatBean.initCandidatModule()}"/>    
@@ -64,7 +64,7 @@
                     <h:outputText class="col-md-6 control-label" style="color: #000; height: 34px; margin-top: 7px; text-align: right; vertical-align: central" 
                                   value="#{langueBean.getMsg('candidat.search')}"/>
                     <p:inputText id="submitSearchCandidate" value="#{candidatBean.searchValue1}" />
-                    <p:commandButton icon="pi pi-search" update="tabViewCandidat" ajax="true" 
+                    <p:commandButton icon="pi pi-search" update="tabViewCandidateForm:tabViewCandidat" ajax="true" 
                                      style="height: 31px; margin-left: 5px"
                                      actionListener="#{candidatBean.searchByTermeAndAuteur()}"/>
                 </div>
@@ -78,13 +78,13 @@
                              selection="#{candidatBean.selectedCandidates}" rowKey="#{candidat.idConcepte}"
                              widgetVar="listCandidatsTable" styleClass="products-table"
                              resizableColumns="true" scrollHeight="450" reflow="true"
-                             paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom"
+                             paginator="true" rows="10" paginatorPosition="bottom"
                              emptyMessage="#{langueBean.getMsg('candidat.save.msg10')}"
                              style="margin-bottom: -17px; margin-top: -16px;" lazy="false">
 
-                    <p:ajax event="rowSelectCheckbox" listener="#{candidatBean.setStateForSelectedCandidate()}" update="tabViewCandidat:panelCandidateList"  />
-                    <p:ajax event="rowUnselectCheckbox" listener="#{candidatBean.setStateForSelectedCandidate()}" update="tabViewCandidat:panelCandidateList"  />
-                    <p:ajax event="toggleSelect" listener="#{candidatBean.setStateForSelectedCandidate()}" update="tabViewCandidat:panelCandidateList" />
+                    <p:ajax event="rowSelectCheckbox" listener="#{candidatBean.setStateForSelectedCandidate()}" update="tabViewCandidateForm:tabViewCandidat:panelCandidateList"  />
+                    <p:ajax event="rowUnselectCheckbox" listener="#{candidatBean.setStateForSelectedCandidate()}" update="tabViewCandidateForm:tabViewCandidat:panelCandidateList"  />
+                    <p:ajax event="toggleSelect" listener="#{candidatBean.setStateForSelectedCandidate()}" update="tabViewCandidateForm:tabViewCandidat:panelCandidateList" />
 
                     <f:facet name="header">
                         <div class="products-table-header">
@@ -94,19 +94,19 @@
 
                     <p:column rendered="#{(currentUser.nodeUser != null) and 
                                           (roleOnTheso.isAdminOnThisTheso() or roleOnTheso.isSuperAdmin())}"
-                              selectionMode="multiple" style="width:16px;text-align:center;"/>
+                               style="width:16px;text-align:center;"/>
 
                     <p:column width="20" headerText="id" sortBy="#{candidat.idConcepte}">
                         <h:outputText value="#{candidat.idConcepte}" style="font-size: 13px;"/>
                     </p:column>                    
 
                     <p:column rendered="#{candidat.nomPref == ''}" width="100" headerText="#{langueBean.getMsg('candidat.titre')}">
-                        <p:commandLink value="(#{candidat.idConcepte})" ajax="true" update="tabViewCandidat" style="font-size: 13px; color: #43B572; "
+                        <p:commandLink value="(#{candidat.idConcepte})" ajax="true" update="tabViewCandidateForm:tabViewCandidat" style="font-size: 13px; color: #43B572; "
                                        actionListener="#{candidatBean.showCandidatSelected(candidat)}" />
                     </p:column>
 
                     <p:column rendered="#{candidat.nomPref != ''}" width="100" headerText="#{langueBean.getMsg('candidat.titre')}" sortBy="#{candidat.nomPref}">
-                        <p:commandLink value="#{candidat.nomPref}" ajax="true" update="tabViewCandidat" style="color: #43B572; font-size: 13px;"
+                        <p:commandLink value="#{candidat.nomPref}" ajax="true" update="tabViewCandidateForm:tabViewCandidat" style="color: #43B572; font-size: 13px;"
                                        process="@this" actionListener="#{candidatBean.showCandidatSelected(candidat)}" />
                     </p:column>
 
@@ -186,7 +186,7 @@
                     <p:dataTable var="langue" value="#{candidatBean.languagesOfTheso}"
                                  selection="#{candidatBean.selectedLanguages}" rowKey="#{langue.code}" style="margin-bottom:0"
                                  lazy="false">
-                        <p:column selectionMode="multiple" style="width:16px;text-align:center" width="40"/>
+                        <p:column style="width:16px;text-align:center" width="40"/>
                         <p:column headerText="Code" width="60">
                             <h:outputText value="#{langue.code}" />
                         </p:column>
@@ -212,13 +212,13 @@
                     <p:commandButton value="#{langueBean.getMsg('btnBack')}"
                                      icon="fas fa-undo-alt" styleClass="ui-button-secondary button" 
                                      actionListener="#{candidatBean.setListCandidatsActivate(true)}"
-                                     update="tabViewCandidat" />
+                                     update="tabViewCandidateForm:tabViewCandidat" />
                 </div>
                 <div class="col-2" >
                     <p:commandButton value="#{langueBean.getMsg('candidat.export')}"
                                      styleClass="ui-button-success" icon="fa fa-upload"
                                      style="margin-left: 20px"
-                                     update="tabViewCandidat messageIndex">
+                                     update="tabViewCandidateForm:tabViewCandidat messageIndex">
                         <p:fileDownload value="#{exportFileBean.exportCandidatsEnSkos()}" />
                     </p:commandButton>
                 </div>
@@ -272,7 +272,7 @@
                 <div class="col-12"> 
                     <p:fileUpload listener="#{importFileBean.loadFileSkos}" label="#{langueBean.getMsg('candidat.parcourir')}" 
                                   mode="advanced" auto="true" process="@this"
-                                  allowTypes="/(\.|\/)(skos|rdf|xml|json|ttl)$/" update="tabViewCandidat" >
+                                  allowTypes="/(\.|\/)(skos|rdf|xml|json|ttl)$/" update="tabViewCandidateForm:tabViewCandidat" >
                         <f:attribute name="isCandidatImport" value="true" />
                     </p:fileUpload>
                 </div>
@@ -298,12 +298,12 @@
                     <p:commandButton 
                                      value="#{langueBean.getMsg('btnBack')}" styleClass="ui-button-secondary button" icon="fas fa-undo-alt"
                                      actionListener="#{candidatBean.setListCandidatsActivate(true)}"
-                                     update="tabViewCandidat" process="@this"/>
+                                     update="tabViewCandidateForm:tabViewCandidat" process="@this"/>
                 </div>
                 <div class="col-6" >
                     <p:commandButton ajax="true"
                                      value="#{langueBean.getMsg('candidat.import')}" styleClass="ui-button-success" icon="pi pi-download"
-                                     update="tabViewCandidat messageIndex" process="@this"
+                                     update="tabViewCandidateForm:tabViewCandidat messageIndex" process="@this"
                                      actionListener="#{importFileBean.addSkosCandidatToBDD()}"/>
                 </div> 
             </div>

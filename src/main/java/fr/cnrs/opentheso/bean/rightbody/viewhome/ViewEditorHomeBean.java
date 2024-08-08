@@ -71,10 +71,10 @@ public class ViewEditorHomeBean implements Serializable {
         isInEditingHomePage = false;
         selectedTheso.setOptionThesoSelected("Option1");
 
-        PrimeFaces pf = PrimeFaces.current();
-        if (pf.isAjaxRequest()) {
-            pf.ajax().update("containerIndex:formRightTab");
-        }
+//        PrimeFaces pf = PrimeFaces.current();
+//        if (pf.isAjaxRequest()) {
+//            pf.ajax().update("containerIndex:formRightTab");
+//        }
     }
 
     public void initText() {

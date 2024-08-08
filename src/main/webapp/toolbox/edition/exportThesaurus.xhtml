@@ -62,7 +62,7 @@
                     <h:outputLabel style="color: #000;" value="#{langueBean.getMsg('statistique.type')}:"/>
                     <p:dataTable id="listType" var="type" value="#{viewExportBean.types}"
                                  selection="#{viewExportBean.typeSelected}" rowKey="#{type}" style="margin-bottom:0" lazy="false">
-                        <p:column selectionMode="single" style="width:16px;text-align:center" width="40"/>
+                        <p:column style="width:16px;text-align:center" width="40"/>
                         <p:column >
                             <h:outputText value="#{type}" />
                         </p:column>
@@ -77,7 +77,7 @@
                                              style="width: 100%; background: none;  box-shadow: none; color: #000"
                                              panelStyle="font-size: 12px;  border: none; box-shadow: none;">
                                 <f:selectItems  value="#{viewExportBean.languagesOfTheso}"
-                                                actionListener="#{viewExportBean.selectedLang1_PDF}" var="langs" itemLabel="#{langs.value}" itemValue="#{langs.code}"/>
+                                                var="langs" itemLabel="#{langs.value}" itemValue="#{langs.code}"/>
                             </p:selectOneMenu>
                         </div>
                     </div>

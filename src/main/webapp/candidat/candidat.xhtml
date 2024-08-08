@@ -5,6 +5,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+    <f:view>
+        <f:metadata>
+            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
+            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
+            <f:viewAction action="#{selectedTheso.preRenderView}"/>
+        </f:metadata>    
+    </f:view>  
     <h:head>
         <title>Opentheso</title>
 
@@ -21,15 +28,11 @@
 
     <h:body id="page-top" onload="initMenu()">
 
-        <p:idleMonitor timeout="#{connect.timeout}">
-            <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
-        </p:idleMonitor>
-
-        <f:metadata>
-            <f:viewParam name="idc" value="#{selectedTheso.idConceptFromUri}"/>
-            <f:viewParam name="idt" value="#{selectedTheso.idThesoFromUri}"/>
-            <f:viewAction action="#{selectedTheso.preRenderView}"/>
-        </f:metadata>
+        <h:form>
+            <p:idleMonitor timeout="#{connect.timeout}">
+                <p:ajax event="idle" listener="#{sessionControl.isTimeout}" />
+            </p:idleMonitor>
+        </h:form>    
 
         <p:growl id="messageIndex" globalOnly="true" showDetail="true"/>
 
@@ -53,8 +56,9 @@
 
                     <div class="row" style="margin-left: 15px; margin-right: 15px; margin-top: 5px;">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 card shadow mb-1">
+                            <h:form id="tabViewCandidateForm">
                             <p:tabView id="tabViewCandidat" activeIndex="#{candidatBean.tabViewIndexSelected}"
-                                       style="background-color: #FAFAFA;">
+                                       style="background-color: #FAFAFA;" >
 
                                 <p:tab id="tab1" title="#{langueBean.getMsg('candidat.proposal')}" titleStyleClass="tab1">
                                     <h:panelGroup rendered="#{candidatBean.isListCandidatsActivate() || 
@@ -101,6 +105,7 @@
                                     </h:panelGroup>
                                 </p:tab>
                             </p:tabView>
+                            </h:form>
                         </div>
                     </div>
                 </div>

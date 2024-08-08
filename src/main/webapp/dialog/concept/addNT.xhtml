@@ -85,7 +85,7 @@
                 <p:commandButton rendered="#{!addConcept.duplicate}" id="addNtBtn" 
                                  icon="pi pi-check" styleClass="ui-button-success"
                                  value="#{langueBean.getMsg('btnAdd')}"
-                                 update="messageIndex containerIndex" oncomplete="PF('addNT').show();"
+                                 update="messageIndex " oncomplete="PF('addNT').show();"
                                  ajax="true" process="@form"
                                  action="#{addConcept.addNewConcept(conceptView.nodeFullConcept.identifier,
                                            selectedTheso.currentLang, 'D', selectedTheso.currentIdTheso, currentUser.nodeUser.idUser)}"/>                    

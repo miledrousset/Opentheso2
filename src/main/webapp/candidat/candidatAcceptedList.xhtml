@@ -8,7 +8,7 @@
             <p:toolbarGroup align="left">
                 <p:selectBooleanCheckbox itemLabel="#{langueBean.getMsg('candidat.my_candidats')}" 
                                          value="#{candidatBean.myCandidatsSelected2}" style="color: #000">
-                    <p:ajax update="tabViewCandidat" listener="#{candidatBean.selectMyAcceptedCandidats()}" />
+                    <p:ajax update="tabViewCandidateForm:tabViewCandidat" listener="#{candidatBean.selectMyAcceptedCandidats()}" />
                 </p:selectBooleanCheckbox>
                 <h:outputText value="#{candidatBean.getCountOfAcceptedCandidats()} #{langueBean.getMsg('candidat.titre')}(s)" style="color: #601e18; font-size: 14px; margin-left: 50px; " />                  
             </p:toolbarGroup>
@@ -18,13 +18,13 @@
             <p:toolbarGroup align="right">
                 <h:outputText value="#{langueBean.getMsg('candidat.search')}"/>
                 <p:inputText value="#{candidatBean.searchValue2}" style="margin-left: 10px" />
-                <p:commandButton icon="fas fa-search" update="tabViewCandidat" style="height: 31px; margin-left: 5px"
+                <p:commandButton icon="fas fa-search" update="tabViewCandidateForm:tabViewCandidat" style="height: 31px; margin-left: 5px"
                                  actionListener="#{candidatBean.searchAcceptedCandByTermeAndAuteur()}"/>
                 
                 <p:commandButton id="commandExport" rendered="#{candidatBean.acceptedCadidat.size() != 0}" 
                                 icon="pi pi-download" value="#{langueBean.getMsg('download')}" styleClass="ui-button-success"
                                  title="#{langueBean.getMsg('statistique.exporter_csv')}"
-                                 update="tabViewCandidat" style=" height: 31px; margin-left: 10px" >
+                                 update="tabViewCandidateForm:tabViewCandidat" style=" height: 31px; margin-left: 10px" >
                     <p:fileDownload value="#{processCandidateBean.exportProcessedCandidates(candidatBean.acceptedCadidat)}" />
                 </p:commandButton>                  
                 
@@ -42,11 +42,11 @@
         </p:column>  
 
         <p:column rendered="#{candidat.nomPref == ''}" width="60" headerText="#{langueBean.getMsg('candidat.titre')}">
-            <p:commandLink value="#{candidat.idConcepte}" ajax="true" update="tabViewCandidat" style="color: #43B572"
+            <p:commandLink value="#{candidat.idConcepte}" ajax="true" update="tabViewCandidateForm:tabViewCandidat" style="color: #43B572"
                            process="@this" actionListener="#{candidatBean.showAcceptedCandidatSelected(candidat)}" />
         </p:column>  
         <p:column  rendered="#{candidat.nomPref != ''}" width="100" headerText="#{langueBean.getMsg('candidat.titre')}">
-            <p:commandLink value="#{candidat.nomPref}" ajax="true" update="tabViewCandidat" style="color: #43B572"
+            <p:commandLink value="#{candidat.nomPref}" ajax="true" update="tabViewCandidateForm:tabViewCandidat" style="color: #43B572"
                            process="@this" actionListener="#{candidatBean.showAcceptedCandidatSelected(candidat)}" />
         </p:column>         
 
