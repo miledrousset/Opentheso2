@@ -1,4 +1,4 @@
-package fr.cnrs.opentheso.bean.proposition;
+package fr.cnrs.opentheso.bean.proposition.dao;
 
 import fr.cnrs.opentheso.bdd.helper.nodes.term.NodeTermTraduction;
 import lombok.AllArgsConstructor;

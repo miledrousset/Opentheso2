@@ -3,7 +3,7 @@ package fr.cnrs.opentheso.bean.proposition.model;
 import fr.cnrs.opentheso.bdd.datas.Term;
 import fr.cnrs.opentheso.bean.proposition.NotePropBean;
 import fr.cnrs.opentheso.bean.proposition.SynonymPropBean;
-import fr.cnrs.opentheso.bean.proposition.TraductionPropBean;
+import fr.cnrs.opentheso.bean.proposition.dao.TraductionPropBean;
 import lombok.Data;
 
 import java.io.Serializable;

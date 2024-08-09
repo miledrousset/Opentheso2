@@ -2,6 +2,7 @@ package fr.cnrs.opentheso.bean.proposition;
 
 import fr.cnrs.opentheso.bdd.helper.PreferencesHelper;
 import fr.cnrs.opentheso.bdd.helper.nodes.NodePreference;
+import fr.cnrs.opentheso.bean.proposition.dao.TraductionPropBean;
 import fr.cnrs.opentheso.bean.proposition.model.PropositionStatusEnum;
 import fr.cnrs.opentheso.bean.proposition.model.Proposition;
 import fr.cnrs.opentheso.bdd.helper.nodes.concept.NodeConcept;
